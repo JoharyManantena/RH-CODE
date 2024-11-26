@@ -22,7 +22,7 @@ CREATE TABLE besoin_recrutement(
    id_departement INT NOT NULL,
    date_demande DATE NOT NULL,
    annees_experience INT,
-   id_diplome INT NOT NULL,
+   id_diplome INT NOT NULL, -- NIVEAU
    PRIMARY KEY(id_besoin_recrutement),
    FOREIGN KEY(id_diplome) REFERENCES diplome(id_diplome)
 );
@@ -32,6 +32,7 @@ CREATE TABLE offre_emploi(
    titre_poste VARCHAR(255),
    description_poste TEXT,
    responsabilite_principale VARCHAR(255),
+   fourchette_salaire VARCHAR(255),
    date_publication DATE NOT NULL,
    id_besoin_recrutement INT NOT NULL,
    date_limite_candidature DATE NOT NULL,
