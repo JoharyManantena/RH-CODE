@@ -55,6 +55,7 @@ CREATE TABLE cv(
 
 
 DROP TABLE IF EXISTS categorie_personnel;
+-- part 3
 CREATE TABLE categorie_personnel (
    id_categorie INT AUTO_INCREMENT,
    nom_categorie VARCHAR(50) NOT NULL, -- ouvrier , cadre , ...
