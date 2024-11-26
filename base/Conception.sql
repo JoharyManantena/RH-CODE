@@ -29,6 +29,10 @@ CREATE TABLE besoin_recrutement(
 
 CREATE TABLE offre_emploi(
    id_offre_emploi INT AUTO_INCREMENT,
+   titre_poste VARCHAR(255),
+   description_poste TEXT,
+   responsabilite_principale VARCHAR(255),
+   
    date_publication DATE NOT NULL,
    id_besoin_recrutement INT NOT NULL,
    date_limite_candidature DATE NOT NULL,
@@ -113,7 +117,11 @@ CREATE TABLE personnel (
    FOREIGN KEY(id_categorie) REFERENCES categorie_personnel(id_categorie)
 );
 
-
+CREATE TABLE admin (
+   id_admin INT AUTO_INCREMENT PRIMARY KEY,
+   username VARCHAR(255) UNIQUE,
+   password VARCHAR(255)
+);
 
 
 
