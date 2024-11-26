@@ -32,7 +32,6 @@ CREATE TABLE offre_emploi(
    titre_poste VARCHAR(255),
    description_poste TEXT,
    responsabilite_principale VARCHAR(255),
-   
    date_publication DATE NOT NULL,
    id_besoin_recrutement INT NOT NULL,
    date_limite_candidature DATE NOT NULL,
