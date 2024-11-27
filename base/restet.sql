@@ -1,0 +1,9 @@
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE candidature;
+TRUNCATE TABLE cv;
+TRUNCATE TABLE offre_emploi;
+TRUNCATE TABLE besoin_recrutement;
+TRUNCATE TABLE statut_candidature;
+TRUNCATE TABLE candidat;
+TRUNCATE TABLE diplome;
+SET FOREIGN_KEY_CHECKS = 1;

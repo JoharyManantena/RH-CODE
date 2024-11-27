@@ -3,11 +3,23 @@ drop database if EXISTS codegestion;
 create database codegestion;
 use codegestion;
 
+CREATE TABLE admin (
+   id_admin INT AUTO_INCREMENT PRIMARY KEY,
+   username VARCHAR(255) UNIQUE,
+   password VARCHAR(255)
+);
+
 CREATE TABLE diplome(
    id_diplome INT AUTO_INCREMENT,
    libelle VARCHAR(50)  NOT NULL,
    niveau INT NOT NULL,
    PRIMARY KEY(id_diplome)
+);
+
+CREATE TABLE departement (
+    id_departement INT AUTO_INCREMENT,
+    nom_departement VARCHAR(100) NOT NULL,
+    PRIMARY KEY (id_departement)
 );
 
 CREATE TABLE Candidat(
@@ -117,11 +129,7 @@ CREATE TABLE personnel (
    FOREIGN KEY(id_categorie) REFERENCES categorie_personnel(id_categorie)
 );
 
-CREATE TABLE admin (
-   id_admin INT AUTO_INCREMENT PRIMARY KEY,
-   username VARCHAR(255) UNIQUE,
-   password VARCHAR(255)
-);
+
 
 
 

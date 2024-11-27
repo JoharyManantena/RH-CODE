@@ -11,9 +11,9 @@ import com.rh.controller.BaseController;
 public class HomeController extends BaseController{
     
     @GetMapping("/")
-    public ModelAndView index() {
-        ModelAndView mv = new ModelAndView("layout");
-        return mv;
+    public String index(Model model) {
+        model.addAttribute("pageContent", "Backoffice/creationOffre");
+        return "layout";
     }
 
     @GetMapping("/loginAdmin")

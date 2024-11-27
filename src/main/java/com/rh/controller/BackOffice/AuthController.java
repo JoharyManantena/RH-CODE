@@ -7,7 +7,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rh.controller.BaseController;
 import com.rh.model.BackOffice.Admin;
-import com.rh.service.AdminService;
+import com.rh.service.BackOffice.AdminService;
 
 @Controller
 public class AuthController extends BaseController {
