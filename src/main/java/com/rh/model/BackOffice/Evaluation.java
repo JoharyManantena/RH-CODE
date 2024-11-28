@@ -5,8 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Evaluation {
@@ -14,10 +12,6 @@ public class Evaluation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_evaluation")
     private Integer idEvaluation;
-
-    @ManyToOne
-    @JoinColumn(name = "id_candidature")
-    private Candidature candidature;
 
     @Column(name = "note_experience")
     private Double noteExperience;
@@ -40,14 +34,6 @@ public class Evaluation {
 
     public void setIdEvaluation(Integer idEvaluation) {
         this.idEvaluation = idEvaluation;
-    }
-
-    public Candidature getCandidature() {
-        return candidature;
-    }
-
-    public void setCandidature(Candidature candidature) {
-        this.candidature = candidature;
     }
 
     public Double getNoteExperience() {
@@ -90,14 +76,12 @@ public class Evaluation {
         this.noteTotale = (this.noteExperience + this.noteEntretien + this.noteAdequation + this.noteAdequation) / 4;
     }
 
-
-    
     public Evaluation() {
 
     }
 
-    public Evaluation(Candidature candidature, Double noteExperience, Double noteCompetence, Double noteAdequation, Double noteEntretien) {
-        this.setCandidature(candidature);
+    public Evaluation( Double noteExperience, Double noteCompetence, Double noteAdequation,
+            Double noteEntretien) {
         this.setNoteExperience(noteExperience);
         this.setNoteCompetence(noteCompetence);
         this.setNoteAdequation(noteAdequation);

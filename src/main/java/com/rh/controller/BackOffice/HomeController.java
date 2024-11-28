@@ -46,12 +46,6 @@ public class HomeController extends BaseController {
     public String evaluation(@RequestParam("idCandidature") String id, Model model) {
         int idCandidature = Integer.parseInt(id);
         Candidature candidature = this.candidatureService.getById(idCandidature);
-        Optional<Evaluation> optEvaluation = this.evaluationService.getEvaluation(idCandidature);
-        if (optEvaluation.isPresent()) {
-            Evaluation e = optEvaluation.get();
-            e.calculerNoteTotale();
-            model.addAttribute("evaluation", e);
-        }
 
         model.addAttribute("candidature", candidature);
         model.addAttribute("pageContent", "BackOffice/evaluationCandidature");

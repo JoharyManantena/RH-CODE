@@ -34,6 +34,8 @@
                             <td th:text="${candidature.getCandidat().getEmail()}"></td>
                             <td th:text="${#temporals.format(candidature.getDatePostulation(), 'dd MMMM yyyy')}"></td>
                             <td th:text="${candidature.getOffreEmploi().getTitrePoste()}"></td>
+                            <td  th:if="${candidature.getEvaluation() != null}"><span th:text="${candidature.getEvaluation().getNoteTotale()}"></span></td>
+                            <td th:if="${candidature.getEvaluation() == null}"><span>Non évaluée</span></td>
                             <td>
                                 <label th:class="'badge ' + 
                                                  (${candidature.getStatutCandidature().getIdStatut() == 1} ? 'badge-warning' : 

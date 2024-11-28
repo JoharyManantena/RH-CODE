@@ -75,24 +75,8 @@ CREATE TABLE statut_candidature(
     PRIMARY KEY(id_statut)
 );
 
-CREATE TABLE candidature(
-    id_candidature INT AUTO_INCREMENT,
-    date_postulation DATE NOT NULL,
-    id_cv INT NOT NULL,
-    id_candidat INT NOT NULL,
-    id_offre_emploi INT NOT NULL,
-    id_statut_candidature INT NOT NULL,
-    PRIMARY KEY(id_candidature),
-    FOREIGN KEY(id_cv) REFERENCES cv(id_cv),
-    FOREIGN KEY(id_candidat) REFERENCES Candidat(id_candidat),
-    FOREIGN KEY(id_offre_emploi) REFERENCES offre_emploi(id_offre_emploi),
-    FOREIGN KEY(id_statut_candidature) REFERENCES statut_candidature(id_statut)
-);
-
-
 CREATE TABLE evaluation(
     id_evaluation INT AUTO_INCREMENT,
-    id_candidature INT REFERENCES candidature(id_candidature),
     note_experience NUMERIC(4,2),
     note_competence NUMERIC(4,2),
     note_adequation NUMERIC(4,2),
@@ -100,6 +84,31 @@ CREATE TABLE evaluation(
     note_totale NUMERIC(4, 2),
     PRIMARY KEY(id_evaluation)
 );
+
+CREATE TABLE candidature(
+    id_candidature INT AUTO_INCREMENT,
+    date_postulation DATE NOT NULL,
+    id_cv INT NOT NULL,
+    id_candidat INT NOT NULL,
+    id_offre_emploi INT NOT NULL,
+    id_statut_candidature INT NOT NULL,
+    id_evaluation INT,
+    PRIMARY KEY(id_candidature),
+    FOREIGN KEY(id_cv) REFERENCES cv(id_cv),
+    FOREIGN KEY(id_candidat) REFERENCES Candidat(id_candidat),
+    FOREIGN KEY(id_offre_emploi) REFERENCES offre_emploi(id_offre_emploi),
+    FOREIGN KEY(id_statut_candidature) REFERENCES statut_candidature(id_statut),
+    FOREIGN KEY(id_evaluation) REFERENCES evaluation(id_evaluation)
+);
+
+
+CREATE TABLE planification_entretien(
+   id_planification INT,
+   id_candidature INT REFERENCES candidature(id_candidature),
+   date_entretien DATETIME
+);
+
+
 
 -- **********************************************************************************************************
 

@@ -15,9 +15,9 @@ public class EvaluationService {
         this.evaluationRepository = er;
     }
 
-    public Optional<Evaluation> getEvaluation(int idCandidature) {
-        return this.evaluationRepository.findByCandidature_IdCandidature(idCandidature);
-    }
+    // public Optional<Evaluation> getEvaluation(int idCandidature) {
+    //     return this.evaluationRepository.findByCandidature_IdCandidature(idCandidature);
+    // }
 
     public Evaluation enregistrerEvaluation(Evaluation evaluation) {
         return this.evaluationRepository.save(evaluation);

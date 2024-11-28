@@ -31,6 +31,10 @@ public class Candidature {
     @JoinColumn(name = "id_statut_candidature", nullable = false) // Clé étrangère vers StatutCandidature
     private StatutCandidature statutCandidature;
 
+    @ManyToOne
+    @JoinColumn(name = "id_evaluation")
+    private Evaluation evaluation;
+
     // Getters et Setters
 
     public Integer getIdCandidature() {
@@ -79,5 +83,13 @@ public class Candidature {
 
     public void setStatutCandidature(StatutCandidature statutCandidature) {
         this.statutCandidature = statutCandidature;
+    }
+
+    public Evaluation getEvaluation() {
+        return evaluation;
+    }
+
+    public void setEvaluation(Evaluation evaluation) {
+        this.evaluation = evaluation;
     }
 }

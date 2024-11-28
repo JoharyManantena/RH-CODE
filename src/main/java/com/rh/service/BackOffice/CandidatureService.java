@@ -27,4 +27,9 @@ public class CandidatureService {
     public Candidature getById(int idCandidature) {
         return this.candidatureRepository.findById(idCandidature).orElse(null);
     }
-}
+
+
+    public Candidature enregistrerCandidature(Candidature candidature) {
+        return this.candidatureRepository.save(candidature);
+    }
+} 
