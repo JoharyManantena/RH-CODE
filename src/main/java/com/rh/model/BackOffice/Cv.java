@@ -37,6 +37,12 @@ public class Cv {
     @JoinColumn(name = "id_diplome", nullable = false) // Clé étrangère vers Diplome
     private Diplome diplome;
 
+    @Column(name = "libelle_diplome", length = 255)
+    private String libelleDiplome;
+    
+    @Column(name = "competence")
+    private String competence;
+
     // Getters et Setters
 
     public Integer getIdCv() {
@@ -101,5 +107,21 @@ public class Cv {
 
     public void setDiplome(Diplome diplome) {
         this.diplome = diplome;
+    }
+
+    public String getLibelleDiplome() {
+        return this.libelleDiplome;
+    }
+
+    public void setLibelleDiplome(String libelleDiplome) {
+        this.libelleDiplome = libelleDiplome;
+    }
+
+    public void setCompetence(String competence) {
+        this.competence = competence;
+    }
+
+    public String getCompetence() {
+        return competence;
     }
 }

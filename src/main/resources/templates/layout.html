@@ -196,26 +196,190 @@
                 </div>
             </div>
         </div>
-        <!-- container-scroller -->
-        <!-- plugins:js -->
+        <!-- Modal (initialement cachée) -->
+
+
         <script src="../../vendors/js/vendor.bundle.base.js"></script>
-        <!-- endinject -->
-        <!-- Plugin js for this page -->
         <script src="../../vendors/typeahead.js/typeahead.bundle.min.js"></script>
         <script src="../../vendors/select2/select2.min.js"></script>
-        <!-- End plugin js for this page -->
-        <!-- inject:js -->
         <script src="../../js/off-canvas.js"></script>
         <script src="../../js/hoverable-collapse.js"></script>
         <script src="../../js/template.js"></script>
         <script src="../../js/settings.js"></script>
         <script src="../../js/todolist.js"></script>
-        <!-- endinject -->
-        <!-- Custom js for this page-->
         <script src="../../js/file-upload.js"></script>
         <script src="../../js/typeahead.js"></script>
         <script src="../../js/select2.js"></script>
-        <!-- End custom js for this page-->
+
+        <!-- Script du modal consultation CV -->
+        <div id="myModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Informations sur la Candidature</h2>
+
+                <!-- Contenu statique de la modal -->
+                <div id="modalContent">
+                    <!-- Le contenu dynamique sera injecté ici par JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Style amélioré pour la modal -->
+        <style>
+            /* Fond semi-transparent */
+            .modal {
+                display: none;
+                /* Cacher la modal par défaut */
+                position: fixed;
+                /* Rester en place */
+                z-index: 1000;
+                /* Assurer qu'il est au-dessus du contenu */
+                left: 0;
+                top: 0;
+                width: 100%;
+                /* Prendre toute la largeur de l'écran */
+                height: 100%;
+                /* Prendre toute la hauteur de l'écran */
+                background-color: rgba(0, 0, 0, 0.5);
+                /* Fond sombre semi-transparent */
+                padding-top: 60px;
+                /* Décalage du contenu */
+                transition: opacity 0.3s ease-in-out;
+                /* Transition douce pour l'affichage */
+            }
+
+            /* Contenu de la modal */
+            .modal-content {
+                background-color: #fff;
+                margin: 5% auto;
+                /* Centrer la modal horizontalement et verticalement */
+                padding: 30px;
+                border-radius: 10px;
+                /* Coins arrondis */
+                width: 60%;
+                /* Largeur de la modal */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                /* Ombre portée */
+                animation: fadeIn 0.5s ease-in-out;
+                /* Animation d'apparition */
+            }
+
+            /* Animation d'apparition */
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+
+                to {
+                    opacity: 1;
+                }
+            }
+
+            /* Bouton de fermeture */
+            .close {
+                color: #aaa;
+                font-size: 28px;
+                font-weight: bold;
+                position: absolute;
+                top: 10px;
+                right: 20px;
+                cursor: pointer;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+            /* Texte et détails du candidat */
+            .modal-content h2 {
+                color: #333;
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .modal-content h3 {
+                color: #555;
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+            .modal-content p {
+                color: #666;
+                font-size: 16px;
+                line-height: 1.6;
+            }
+
+            .modal-content p strong {
+                font-weight: bold;
+                color: #333;
+            }
+
+            /* Mise en forme des informations */
+            .modal-content .info-group {
+                margin-bottom: 20px;
+            }
+
+            .modal-content .info-group p {
+                margin: 5px 0;
+            }
+
+            /* Boutons (si ajoutés) */
+            .modal-content .button {
+                background-color: #007BFF;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+
+            .modal-content .button:hover {
+                background-color: #0056b3;
+            }
+        </style>
+        <script>
+            function showModal(row) {
+                // Récupérer les données dynamiques de l'attribut data-* de la ligne
+                var cvNom = row.getAttribute('data-nom'); // Récupère le nom du CV
+                var cvPrenom = row.getAttribute('data-prenom'); // Récupère le prénom du CV
+                var cvDateNaissance = row.getAttribute('data-date-naissance'); // Récupère la date de naissance
+                var cvEmail = row.getAttribute('data-email'); // Récupère l'email du candidat
+                var nivDiplome = row.getAttribute('data-niveauDiplome');
+                var libDiplome = row.getAttribute('data-libDiplome');
+                var anneeExp = row.getAttribute('data-annee-experience');
+                var statut = row.getAttribute('data-statutCandidature');
+                var competence = row.getAttribute('data-competence');
+                var id = row.getAttribute('data-id');
+                // Préparer le contenu dynamique pour la modal
+                var modalContent = `
+                    <h3>Candidat : ${cvNom} ${cvPrenom}</h3>
+                    <p><strong>Date de naissance : </strong>${cvDateNaissance}</p>
+                    <p><strong>Email : </strong>${cvEmail}</p>
+                    <p><strong>Diplome : </strong>${nivDiplome} en ${libDiplome}</p>
+                    <p><strong>Annee experience : </strong>${anneeExp}  annees</p>
+                    <p><strong>Competence : </strong>${competence}</p>
+                    <p><strong>Statut candidature : </strong>${statut}</p>
+                    <a href='/evaluation?idCandidature=${id}'><button>Evaluer</button></a>
+                `;
+
+                // Ajouter le contenu dynamique à la modal
+                document.getElementById('modalContent').innerHTML = modalContent;
+
+                // Afficher la modal
+                document.getElementById('myModal').style.display = "block";
+            }
+
+
+            // Fonction pour fermer la modal
+            function closeModal() {
+                document.getElementById('myModal').style.display = "none";
+            }
+        </script>
+
 </body>
 
 </html>

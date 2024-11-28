@@ -1,0 +1,53 @@
+<div class="col-lg-12 grid-margin stretch-card" th:fragment="content">
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Liste candidatures</h4>
+            <p class="card-description">
+                Add class <code>.table-hover</code>
+            </p>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>email</th>
+                            <th>Date postulation</th>
+                            <th>Emploi</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="candidature : ${listeCandidature}"
+                            th:data-id="${candidature.getIdCandidature()}"
+                            th:data-nom="${candidature.getCv().getNom()}"
+                            th:data-prenom="${candidature.getCv().getPrenom()}"
+                            th:data-niveauDiplome="${candidature.getCv().getDiplome().getLibelle()}"
+                            th:data-libDiplome="${candidature.getCv().getLibelleDiplome()}"
+                            th:data-statutCandidature="${candidature.getStatutCandidature().getLibelle()}"
+                            th:data-competence="${candidature.getCv().getCompetence()}"
+                            th:data-annee-experience="${candidature.getCv().getAnneesExperience()}"
+                            th:data-date-naissance="${candidature.getCv().getDateNaissance()}"
+                            th:data-email="${candidature.getCandidat().getEmail()}" onclick="showModal(this)">
+                            <td th:text="${candidature.getCv().getNom()}"></td>
+                            <td th:text="${candidature.getCandidat().getEmail()}"></td>
+                            <td th:text="${#temporals.format(candidature.getDatePostulation(), 'dd MMMM yyyy')}"></td>
+                            <td th:text="${candidature.getOffreEmploi().getTitrePoste()}"></td>
+                            <td>
+                                <label th:class="'badge ' + 
+                                                 (${candidature.getStatutCandidature().getIdStatut() == 1} ? 'badge-warning' : 
+                                                 (${candidature.getStatutCandidature().getIdStatut() == 2} ? 'badge-info' : 
+                                                 (${candidature.getStatutCandidature().getIdStatut() == 3} ? 'badge-success' : 
+                                                 'badge-danger')))"
+                                    th:text="${candidature.getStatutCandidature().getLibelle()}">
+                                </label>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

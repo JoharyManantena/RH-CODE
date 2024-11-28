@@ -62,6 +62,8 @@ CREATE TABLE cv(
    annees_experience INT,
    id_candidat INT NOT NULL,
    id_diplome INT NOT NULL,
+   libelle_diplome VARCHAR(255),
+   competence TEXT,
    PRIMARY KEY(id_cv),
    FOREIGN KEY(id_candidat) REFERENCES Candidat(id_candidat),
    FOREIGN KEY(id_diplome) REFERENCES diplome(id_diplome)

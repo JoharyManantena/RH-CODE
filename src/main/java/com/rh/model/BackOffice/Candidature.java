@@ -1,7 +1,7 @@
 package com.rh.model.BackOffice;
 
 import jakarta.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "candidature")
@@ -13,8 +13,7 @@ public class Candidature {
     private Integer idCandidature;
 
     @Column(name = "date_postulation", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date datePostulation;
+    private LocalDate datePostulation; 
 
     @ManyToOne
     @JoinColumn(name = "id_cv", nullable = false) // Clé étrangère vers CV
@@ -42,11 +41,11 @@ public class Candidature {
         this.idCandidature = idCandidature;
     }
 
-    public Date getDatePostulation() {
+    public LocalDate getDatePostulation() {
         return datePostulation;
     }
 
-    public void setDatePostulation(Date datePostulation) {
+    public void setDatePostulation(LocalDate datePostulation) {
         this.datePostulation = datePostulation;
     }
 
