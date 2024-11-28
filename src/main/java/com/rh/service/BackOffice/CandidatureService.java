@@ -22,4 +22,9 @@ public class CandidatureService {
     public List<Candidature> getCandidatures() {
         return this.candidatureRepository.findAll();
     }
+
+
+    public Candidature getById(int idCandidature) {
+        return this.candidatureRepository.findById(idCandidature).orElse(null);
+    }
 }

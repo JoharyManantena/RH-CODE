@@ -93,10 +93,11 @@ CREATE TABLE candidature(
 CREATE TABLE evaluation(
     id_evaluation INT AUTO_INCREMENT,
     id_candidature INT REFERENCES candidature(id_candidature),
-    note_experience INT,
-    note_competence INT,
-    note_adequation INT,
-    note_entretien INT,
+    note_experience NUMERIC(4,2),
+    note_competence NUMERIC(4,2),
+    note_adequation NUMERIC(4,2),
+    note_entretien NUMERIC(4,2),
+    note_totale NUMERIC(4, 2),
     PRIMARY KEY(id_evaluation)
 );
 

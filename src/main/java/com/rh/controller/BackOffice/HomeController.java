@@ -1,16 +1,29 @@
 package com.rh.controller.BackOffice;
 
-import org.springframework.http.ResponseEntity;
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.rh.controller.BaseController;
+import com.rh.model.BackOffice.Candidature;
+import com.rh.model.BackOffice.Evaluation;
+import com.rh.service.BackOffice.CandidatureService;
+import com.rh.service.BackOffice.EvaluationService;
 
 @Controller
-public class HomeController extends BaseController{
-    
+public class HomeController extends BaseController {
+
+    private final CandidatureService candidatureService;
+    private final EvaluationService evaluationService;
+
+    public HomeController(CandidatureService cs, EvaluationService es) {
+        this.candidatureService = cs;
+        this.evaluationService = es;
+    }
+
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("pageContent", "Backoffice/creationOffre");
@@ -30,7 +43,18 @@ public class HomeController extends BaseController{
     }
 
     @GetMapping("/evaluation")
-    public ResponseEntity<String> pageEvaluation(@RequestParam("idCandidature") String idCandidature) {
-        return ResponseEntity.ok(idCandidature);
+    public String evaluation(@RequestParam("idCandidature") String id, Model model) {
+        int idCandidature = Integer.parseInt(id);
+        Candidature candidature = this.candidatureService.getById(idCandidature);
+        Optional<Evaluation> optEvaluation = this.evaluationService.getEvaluation(idCandidature);
+        if (optEvaluation.isPresent()) {
+            Evaluation e = optEvaluation.get();
+            e.calculerNoteTotale();
+            model.addAttribute("evaluation", e);
+        }
+
+        model.addAttribute("candidature", candidature);
+        model.addAttribute("pageContent", "BackOffice/evaluationCandidature");
+        return "BackOffice/evaluationCandidature";
     }
 }
