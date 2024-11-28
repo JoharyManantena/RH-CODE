@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Créer une demande de congé</title>
+</head>
+<body>
+    <h1>Créer une nouvelle demande</h1>
+
+    <!-- Affichage des erreurs -->
+    <div th:if="${errorMessage}" style="color: red;">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <form action="/demandes" method="post" th:object="${demandeConge}">
+        <label>Personnel :</label>
+        <select th:field="*{personnel.idPersonnel}">
+            <option th:each="personnel : ${personnels}"
+                    th:value="${personnel.idPersonnel}"
+                    th:text="${personnel.nom + ' ' + personnel.prenom}">
+            </option>
+        </select>
+        <br>
+
+        <label>Type de Congé :</label>
+        <select th:field="*{typeConge.idTypeConge}">
+            <option th:each="type : ${typesConges}"
+                    th:value="${type.idTypeConge}"
+                    th:text="${type.nomConge}">
+            </option>
+        </select>
+        <br>
+
+        <label>Date Début :</label>
+        <input type="date" th:field="*{dateDebut}" />
+        <br>
+
+        <label>Date Fin :</label>
+        <input type="date" th:field="*{dateFin}" />
+        <br>
+
+        <button type="submit">Soumettre</button>
+    </form>
+</body>
+</html>

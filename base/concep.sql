@@ -44,13 +44,13 @@ CREATE TABLE cv(
    date_naissance DATE,
    adresse VARCHAR(255) ,
    annees_experience INT,
-   idclient INT NOT NULL,
-   id_offre_emploi INT NOT NULL,
-   id_diplome INT NOT NULL,
-   PRIMARY KEY(id_cv),
-   FOREIGN KEY(idclient) REFERENCES Client(idclient),
-   FOREIGN KEY(id_offre_emploi) REFERENCES offre_emploi(id_offre_emploi),
-   FOREIGN KEY(id_diplome) REFERENCES diplome(id_diplome)
+   -- idclient INT NOT NULL,
+   -- id_offre_emploi INT NOT NULL,
+   -- id_diplome INT NOT NULL,
+   PRIMARY KEY(id_cv)
+   -- FOREIGN KEY(idclient) REFERENCES Client(idclient),
+   -- FOREIGN KEY(id_offre_emploi) REFERENCES offre_emploi(id_offre_emploi),
+   -- FOREIGN KEY(id_diplome) REFERENCES diplome(id_diplome)
 );
 
 
@@ -78,8 +78,8 @@ CREATE TABLE personnel (
    poste VARCHAR(50),
    id_cv INT NOT NULL,
    PRIMARY KEY(id_personnel),
-   UNIQUE(id_cv),
-   FOREIGN KEY(id_cv) REFERENCES cv(id_cv),
+   -- UNIQUE(id_cv),
+   -- FOREIGN KEY(id_cv) REFERENCES cv(id_cv),
    FOREIGN KEY(id_categorie) REFERENCES categorie_personnel(id_categorie)
 );
 
@@ -203,9 +203,9 @@ CREATE TABLE document_fin (
 
 
 CREATE TABLE type_conge (
-    id_type_conge INT AUTO_INCREMENT, -- Specify the data type before AUTO_INCREMENT
+    id_type_conge INT AUTO_INCREMENT, 
     nom_conge VARCHAR(50) NOT NULL,  -- Congé payé, maladie, etc.
-    PRIMARY KEY (id_type_conge)      -- Specify the column for the primary key
+    PRIMARY KEY (id_type_conge)  
 );
 
 
@@ -216,11 +216,17 @@ CREATE TABLE demande_conge (
    date_demande DATE NOT NULL,
    date_debut DATE NOT NULL,
    date_fin DATE,
-   statut VARCHAR(50) DEFAULT 'En attente', -- Approuvé, rejeté, etc.
+   statut VARCHAR(50) DEFAULT 'En attente',
    PRIMARY KEY(id_demande),
    FOREIGN KEY(id_personnel) REFERENCES personnel(id_personnel),
    FOREIGN KEY(id_type_conge) REFERENCES type_conge(id_type_conge)
 );
+
+ALTER TABLE demande_conge MODIFY COLUMN date_demande DATE NOT NULL DEFAULT CURRENT_DATE;
+
+
+
+
 
 
 
