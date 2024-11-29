@@ -25,4 +25,49 @@ Attestaion pour Assurance Chômage(fichier pdf).
 
 A faire:
 -Conception BD:
+1-Formalisation:
+Rupture_contrat:
+-fichier (lettre)
+-date notification
+-etat(0 RH  vers admin,1 admin vers personel)
+-date Fin(preavis)
+-type_rupture
+-date Entretient(update Admin)
+-date Homolagtion(update Admin)
+-idemnites(update Admin)
+-idPersonel
+-id_contrat_employe
+
+2-Document:
+-id_rupture
+-type_document(certificat,fiche de paye)
+-date_emission
+
+model:
+*-personnel
+*-rupture_contrat
+*-envoye_document
+*-contrat_employe
+*-cv
+*-categorie
+*-candidat
+*-diplome
+*-departement
+*-type_contrat
+*-Admin
+
+repository:
+*-rupture_contrat:finByIdPersonnel
+*-documentFin: *findByidRupture
+*-contrat_employe: findByIdPersonnel,
+
+service:
+*-rupture_contrat: RupturePersonnel, *getByIdRuptureContratEtat(notification), Update(etat,datehomologation,date entretient,Indemnitée), save
+*-documentFin: *EnvoyerDocument, *voirDocumentbyIdRupture
+
+Controller:
+RuptureController(côté RH).
+ValidationRuptueController(côté Admin).
+
+front:
 
