@@ -77,11 +77,11 @@ CREATE TABLE statut_candidature(
 
 CREATE TABLE evaluation(
     id_evaluation INT AUTO_INCREMENT,
-    note_experience NUMERIC(4,2),
-    note_competence NUMERIC(4,2),
-    note_adequation NUMERIC(4,2),
-    note_entretien NUMERIC(4,2),
-    note_totale NUMERIC(4, 2),
+    note_experience NUMERIC(4,2) DEFAULT 0,
+    note_competence NUMERIC(4,2) DEFAULT 0,
+    note_adequation NUMERIC(4,2) DEFAULT 0,
+    note_entretien NUMERIC(4,2) DEFAULT 0,
+    note_totale NUMERIC(4, 2) DEFAULT 0,
     PRIMARY KEY(id_evaluation)
 );
 
@@ -103,9 +103,11 @@ CREATE TABLE candidature(
 
 
 CREATE TABLE planification_entretien(
-   id_planification INT,
+   id_planification INT AUTO_INCREMENT,
    id_candidature INT REFERENCES candidature(id_candidature),
-   date_entretien DATETIME
+   date_entretien DATETIME,
+   PRIMARY KEY(id_planification)
+
 );
 
 

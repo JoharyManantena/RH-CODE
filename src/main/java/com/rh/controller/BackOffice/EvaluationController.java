@@ -39,11 +39,10 @@ public class EvaluationController {
 
             if (candidature.getEvaluation() != null) {
                 // Met à jour une évaluation existante
-                candidature.getEvaluation().setNoteExperience(noteExperience);
-                candidature.getEvaluation().setNoteCompetence(noteCompetence);
-                candidature.getEvaluation().setNoteEntretien(noteEntretien);
-                candidature.getEvaluation().setNoteAdequation(noteAdequation);
-                candidature.getEvaluation().calculerNoteTotale();
+                Evaluation e = new Evaluation(noteExperience, noteCompetence, noteAdequation, noteEntretien);
+                e.calculerNoteTotale();
+                candidature.setEvaluation(e);
+                System.out.println("Note totale = "  + candidature.getEvaluation().getNoteTotale());
                 this.evaluationService.enregistrerEvaluation(candidature.getEvaluation());
             } else {
                 // Crée une nouvelle évaluation
@@ -58,6 +57,13 @@ public class EvaluationController {
             response.put("status", "success");
             response.put("message", "Évaluation enregistrée avec succès");
             response.put("noteTotale", candidature.getEvaluation().getNoteTotale());
+            response.put("idCandidature", candidature.getIdCandidature());
+            if (candidature.getStatutCandidature().getIdStatut() == 2 || candidature.getStatutCandidature().getIdStatut() == 4) {
+                response.put("estPlanifier", true);
+            }else {
+                response.put("estPlanifier", false);
+
+            }
         } catch (Exception e) {
             // Gère les erreurs et prépare une réponse d'échec
             response.put("status", "error");

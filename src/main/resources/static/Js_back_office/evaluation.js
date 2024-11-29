@@ -16,29 +16,43 @@
             });
 
             if (response.status === "success") {
-                Swal.fire({
-                    title: 'Évaluation soumise avec succès !',
-                    text: "Souhaitez-vous planifier un entretien pour ce candidat ?",
-                    icon: 'success',
-                    showCancelButton: true,
-                    confirmButtonText: 'Oui, planifier',
-                    cancelButtonText: 'Non, plus tard',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Afficher la modal pour la planification
-                        $("#idCandidature").val(response.idCandidature); // Associer l'ID à la modal
-                        $("#modalPlanification").modal("show");
-                    } else {
-                        Swal.fire(
-                            'Planification annulée',
-                            'Vous pouvez revenir pour planifier un entretien plus tard.',
-                            'info'
-                        ).then(() => {
-                            window.location.href = `/candidatures`;
-                        });
-                    }
-                });
+                if (response.estPlanifier) {
+                    // Si l'entretien est déjà planifié
+                    Swal.fire({
+                        title: 'Évaluation soumise avec succès !',
+                        text: 'Un entretien est déjà planifié pour ce candidat.',
+                        icon: 'info',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = `/candidatures`; // Redirection ou autre action
+                    });
+                } else {
+                    // Si l'entretien n'est pas encore planifié
+                    Swal.fire({
+                        title: 'Évaluation soumise avec succès !',
+                        text: "Souhaitez-vous planifier un entretien pour ce candidat ?",
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonText: 'Oui, planifier',
+                        cancelButtonText: 'Non, plus tard',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Afficher la modal pour la planification
+                            $("#idCandidature").val(response.idCandidature); // Associer l'ID à la modal
+                            console.log("ID Candidature dans le champ caché : ", $("#idCandidature").val());
+                            $("#modalPlanification").modal("show");
+                        } else {
+                            Swal.fire(
+                                'Planification annulée',
+                                'Vous pouvez revenir pour planifier un entretien plus tard.',
+                                'info'
+                            ).then(() => {
+                                window.location.href = `/candidatures`;
+                            });
+                        }
+                    });
+                }
             } else {
                 Swal.fire({
                     icon: "error",
@@ -66,7 +80,7 @@
         try {
             const response = await $.ajax({
                 url: actionUrl,
-                type: "POST",
+                type: "GET",
                 data: formData,
                 dataType: "json"
             });

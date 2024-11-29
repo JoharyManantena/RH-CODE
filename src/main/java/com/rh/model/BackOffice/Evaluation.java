@@ -14,16 +14,16 @@ public class Evaluation {
     private Integer idEvaluation;
 
     @Column(name = "note_experience")
-    private Double noteExperience;
+    private Double noteExperience = 0.0;
 
     @Column(name = "note_competence")
-    private Double noteCompetence;
+    private Double noteCompetence = 0.0;
 
     @Column(name = "note_adequation")
-    private Double noteAdequation;
+    private Double noteAdequation = 0.0;
 
     @Column(name = "note_entretien")
-    private Double noteEntretien;
+    private Double noteEntretien = 0.0;
 
     @Column(name = "note_totale")
     private Double noteTotale = null;
@@ -41,7 +41,12 @@ public class Evaluation {
     }
 
     public void setNoteExperience(Double noteExperience) {
-        this.noteExperience = noteExperience;
+        if (noteExperience == null) {
+            this.noteExperience = 0.0;
+        }else {
+            this.noteExperience = noteExperience;
+
+        }
     }
 
     public Double getNoteCompetence() {
@@ -49,7 +54,12 @@ public class Evaluation {
     }
 
     public void setNoteCompetence(Double noteCompetence) {
-        this.noteCompetence = noteCompetence;
+        if (noteCompetence == null) {
+            this.noteCompetence = 0.0;
+        }else {
+            this.noteCompetence = noteCompetence;
+
+        }
     }
 
     public Double getNoteAdequation() {
@@ -57,7 +67,12 @@ public class Evaluation {
     }
 
     public void setNoteAdequation(Double noteAdequation) {
-        this.noteAdequation = noteAdequation;
+        if (noteAdequation == null) {
+            this.noteAdequation = 0.0;
+        }else {
+            this.noteAdequation = noteAdequation;
+
+        }
     }
 
     public Double getNoteEntretien() {
@@ -65,7 +80,11 @@ public class Evaluation {
     }
 
     public void setNoteEntretien(Double noteEntretien) {
-        this.noteEntretien = noteEntretien;
+        if (noteEntretien == null) {
+            this.noteEntretien = 0.0;
+        }else {
+            this.noteEntretien = noteEntretien;
+        }
     }
 
     public Double getNoteTotale() {
@@ -73,6 +92,7 @@ public class Evaluation {
     }
 
     public void calculerNoteTotale() {
+        
         this.noteTotale = (this.noteExperience + this.noteEntretien + this.noteAdequation + this.noteAdequation) / 4;
     }
 

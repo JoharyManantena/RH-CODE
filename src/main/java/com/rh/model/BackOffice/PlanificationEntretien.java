@@ -26,5 +26,37 @@ public class PlanificationEntretien {
     @Column(name = "date_entretien")
     private LocalDateTime dateEntretien;
 
-    
+    public Integer getIdPlanification() {
+        return idPlanification;
+    }
+
+    public void setIdPlanification(Integer idPlanification) {
+        this.idPlanification = idPlanification;
+    }
+
+    public Candidature getCandidature() {
+        return candidature;
+    }
+
+    public void setCandidature(Candidature candidature) {
+        this.candidature = candidature;
+    }
+
+    public LocalDateTime getDateEntretien() {
+        return dateEntretien;
+    }
+
+    public void setDateEntretien(LocalDateTime dateEntretien) {
+        this.dateEntretien = dateEntretien;
+    }
+
+    public PlanificationEntretien() {
+        
+    }
+    public PlanificationEntretien(Candidature candidature, LocalDateTime dateEntretien) {
+        this.setCandidature(candidature);
+        this.setDateEntretien(dateEntretien);
+    }
+
+
 }
