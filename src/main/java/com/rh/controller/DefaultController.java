@@ -10,4 +10,6 @@ public class DefaultController {
     public String home() {
         return "home";
     }
+
+
 }
