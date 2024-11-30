@@ -112,6 +112,17 @@ CREATE TABLE planification_entretien(
 
 );
 
+CREATE TABLE notification (
+    id_notification INT AUTO_INCREMENT PRIMARY KEY,  -- Identifiant unique de notification
+    message TEXT NOT NULL,  -- Contenu du message de la notification
+    type_notification VARCHAR(50) NOT NULL,  -- Type de notification (par exemple : 'Acceptation', 'Rejet')
+    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Date de création de la notification
+    id_candidat INT,  -- L'ID de l'utilisateur (candidat) qui reçoit la notification
+    statut ENUM('Non_lue', 'Lue') DEFAULT 'Non_lue',  -- Statut de la notification
+    FOREIGN KEY (id_candidat) REFERENCES candidat(id_candidat)  -- Référence à la table des utilisateurs
+);
+
+
 
 
 -- **********************************************************************************************************

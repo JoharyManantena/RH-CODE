@@ -32,7 +32,7 @@
                             $("#idCandidature").val(idCandidature);
                             console.log("ID Candidature dans le champ caché : ", $("#idCandidature").val());
                             window.location.href = `/accepter?idCandidature=${idCandidature}`;
-                        }else {
+                        } else {
                             $("#idCandidature").val(response.idCandidature);
                             console.log("ID Candidature dans le champ caché : ", $("#idCandidature").val());
                             window.location.href = `/rejeter?idCandidature=${idCandidature}`;
