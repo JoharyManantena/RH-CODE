@@ -36,11 +36,26 @@ public class DemandeConge {
 
     private String statut = "En attente";
 
-    // Getters and Setters
+    private Double dureeConge;
 
-    public void setDateDebut(Date dateDebut) {
-        this.dateDebut = dateDebut;
+    public DemandeConge() {
+        this.dateDemande = new Date();
     }
+
+    public Double getDureeConge() {
+        return dureeConge;
+    }
+
+    public void setDureeConge(Double dureeConge) {
+        if (dureeConge <= 0) {
+            throw new IllegalArgumentException("La durée du congé doit être supérieure à 0.");
+        }
+        if (dureeConge > 30) {
+            throw new IllegalArgumentException("La durée du congé ne peut pas dépasser 30 jours.");
+        }
+        this.dureeConge = dureeConge;
+    }
+
 
     public Integer getIdDemande() {
         return idDemande;
@@ -60,6 +75,10 @@ public class DemandeConge {
 
     public Date getDateDebut() {
         return dateDebut;
+    }
+
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
     }
 
     public Date getDateFin() {
@@ -93,5 +112,4 @@ public class DemandeConge {
     public void setTypeConge(TypeConge typeConge) {
         this.typeConge = typeConge;
     }
-    
 }

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des demandes</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .status-button {
+            padding: 6px 12px;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            border: none;
+            cursor: default;
+        }
+        .valid {
+            background-color: lightgreen; 
+            color: black;   
+             
+        }
+        .en-attente {
+            background-color: yellow;     
+            color: black;           
+        }
+        .valider-button {
+            background-color: green;
+            color: white;
+        }
+        .annuler-button {
+            background-color: red;
+            color: white;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Notification demandes Conge : [Personnel]  </h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nom du Personnel</th>
+                <th>Date de la demande</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="demande : ${demandes}">
+                <td th:text="${demande.personnel != null ? (demande.personnel.prenom + ' ' + demande.personnel.nom) : 'Non défini'}"></td>
+                <td th:text="${#dates.format(demande.dateDemande, 'dd-MM-yyyy')}"></td>
+                <td th:text="${#dates.format(demande.dateDebut, 'dd-MM-yyyy')}"></td>
+                <td th:text="${#dates.format(demande.dateFin, 'dd-MM-yyyy')}"></td>
+                <td>
+                    
+                    <button class="status-button" 
+                            th:class="${demande.statut == 'Validée' ? 'valid' : (demande.statut == 'En attente' ? 'en-attente' : '')}"
+                            disabled="disabled" 
+                            th:text="${demande.statut}"></button>
+                </td>
+                
+            </tr>
+        </tbody>
+    </table>
+    <br><br>
+</body>
+</html>

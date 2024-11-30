@@ -6,18 +6,14 @@
 <body>
     <h1>Créer une nouvelle demande</h1>
 
-    <!-- Affichage des erreurs -->
-    <div th:if="${errorMessage}" style="color: red;">
-        <p th:text="${errorMessage}"></p>
-    </div>
+    <div th:if="${errorMessage}" th:utext="'<script>alert(\'' + ${errorMessage} + '\');</script>'"></div>
 
     <form action="/demandes" method="post" th:object="${demandeConge}">
         <label>Personnel :</label>
         <select th:field="*{personnel.idPersonnel}">
             <option th:each="personnel : ${personnels}"
                     th:value="${personnel.idPersonnel}"
-                    th:text="${personnel.nom + ' ' + personnel.prenom}">
-            </option>
+                    th:text="${personnel.nom + ' ' + personnel.prenom}"></option>
         </select>
         <br>
 
@@ -25,17 +21,21 @@
         <select th:field="*{typeConge.idTypeConge}">
             <option th:each="type : ${typesConges}"
                     th:value="${type.idTypeConge}"
-                    th:text="${type.nomConge}">
-            </option>
+                    th:text="${type.nomConge}"></option>
         </select>
         <br>
 
+        
         <label>Date Début :</label>
         <input type="date" th:field="*{dateDebut}" />
         <br>
 
         <label>Date Fin :</label>
         <input type="date" th:field="*{dateFin}" />
+        <br>
+
+        <label>Durée :</label>
+        <input type="number" th:field="*{dureeConge}" />
         <br>
 
         <button type="submit">Soumettre</button>
