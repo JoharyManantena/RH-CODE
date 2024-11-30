@@ -1,0 +1,109 @@
+drop database if EXISTS codegestion;
+
+create database client;
+use client;
+
+CREATE TABLE Candidat(
+   id_candidat INT AUTO_INCREMENT,
+   email VARCHAR(50)  NOT NULL,
+   password VARCHAR(50) ,
+   PRIMARY KEY(id_candidat)
+);
+
+CREATE TABLE diplome(
+   id_diplome INT AUTO_INCREMENT,
+   libelle VARCHAR(50)  NOT NULL,
+   niveau INT NOT NULL,
+   PRIMARY KEY(id_diplome)
+);
+
+CREATE TABLE besoin_recrutement(
+   id_besoin_recrutement INT AUTO_INCREMENT,
+   id_departement VARCHAR(50)  NOT NULL,
+   date_demande DATE NOT NULL,
+   annees_experience VARCHAR(50)  NOT NULL,
+   id_diplome INT NOT NULL,
+   nombre_besoin INT NOT NULL,
+   PRIMARY KEY(id_besoin_recrutement),
+   FOREIGN KEY(id_diplome) REFERENCES diplome(id_diplome)
+);
+
+CREATE TABLE offre_emploi(
+   id_offre_emploi INT AUTO_INCREMENT,
+   titre_poste VARCHAR(255),
+   description_poste TEXT,
+   responsabilite_principale VARCHAR(255),
+   fourchette_salaire VARCHAR(255),
+   date_publication DATE NOT NULL,
+   id_besoin_recrutement INT NOT NULL,
+   date_limite_candidature DATE NOT NULL,
+   disponible BOOLEAN DEFAULT TRUE,
+   PRIMARY KEY(id_offre_emploi),
+   UNIQUE(id_besoin_recrutement),
+   FOREIGN KEY(id_besoin_recrutement) REFERENCES besoin_recrutement(id_besoin_recrutement)
+);
+
+
+CREATE TABLE Postule(
+   id_postule INT AUTO_INCREMENT,
+   id_candidat INT NOT NULL,
+   id_offre_emploi INT NOT NULL,
+   nom VARCHAR(50) NOT NULL,
+   prenom VARCHAR(50) NOT NULL,
+   date_naissance DATE NOT NULL,
+   date_postule VARCHAR(50) NOT NULL,
+   cv LONGBLOG,
+   PRIMARY KEY(id_postule),
+   FOREIGN KEY(id_candidat) REFERENCES Candidat(id_candidat),
+   FOREIGN KEY(offre_emploi) REFERENCES offre_emploi(id_offre_emploi)
+);
+
+CREATE TABLE statut_candidature(
+   id_statut INT NOT NULL,
+   libelle VARCHAR(255),
+   PRIMARY KEY(id_statut)
+);
+
+CREATE TABLE evaluation(
+   id_evaluation INT AUTO_INCREMENT,
+   note_experience NUMERIC(4,2),
+   note_competence NUMERIC(4,2),
+   note_adequation NUMERIC(4,2),
+   note_entretien NUMERIC(4,2),
+   note_totale NUMERIC(4, 2),
+   PRIMARY KEY(id_evaluation)
+);
+
+CREATE TABLE candidature(
+   id_candidature INT AUTO_INCREMENT,
+   date_postulation DATE NOT NULL,
+   id_cv INT NOT NULL,
+   id_candidat INT NOT NULL,
+   id_offre_emploi INT NOT NULL,
+   id_statut_candidature INT NOT NULL,
+   id_evaluation INT,
+   id_postule INT NOT NULL,
+   PRIMARY KEY(id_candidature),
+   FOREIGN KEY(id_cv) REFERENCES cv(id_cv),
+   FOREIGN KEY(id_candidat) REFERENCES Candidat(id_candidat),
+   FOREIGN KEY(id_offre_emploi) REFERENCES offre_emploi(id_offre_emploi),
+   FOREIGN KEY(id_postule) REFERENCES Postule(id_postule),
+   FOREIGN KEY(id_statut_candidature) REFERENCES statut_candidature(id_statut),
+   FOREIGN KEY(id_evaluation) REFERENCES evaluation(id_evaluation)
+);
+
+CREATE TABLE cv(
+   id_cv INT AUTO_INCREMENT,
+   nom VARCHAR(255) ,
+   prenom VARCHAR(255) ,
+   date_naissance DATE,
+   adresse VARCHAR(255) ,
+   annees_experience INT,
+   id_candidat INT NOT NULL,
+   id_diplome INT NOT NULL,
+   libelle_diplome VARCHAR(255),
+   competence TEXT,
+   PRIMARY KEY(id_cv),
+   FOREIGN KEY(id_candidat) REFERENCES Candidat(id_candidat),
+   FOREIGN KEY(id_diplome) REFERENCES diplome(id_diplome)
+);
