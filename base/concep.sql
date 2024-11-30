@@ -398,3 +398,27 @@ CREATE TABLE fiche_paie (
    net_a_payer NUMERIC(15, 2) NOT NULL,
    FOREIGN KEY (id_personnel) REFERENCES personnel(id_personnel)
 );
+
+
+
+-- MariaDB [codegestion]> SELECT
+--     ->     p.id_personnel,
+--     ->     p.nom,
+--     ->     p.prenom,
+--     ->     (TIMESTAMPDIFF(YEAR, p.date_embauche, CURDATE()) * 12) * 2.5 AS droits_conge,  -- 2,5 jours par mois
+--     ->     IFNULL(SUM(CASE WHEN d.statut = 'Approuvé' THEN d.duree_conge ELSE 0 END), 0) AS conges_approuves,  -- Congés approuvés
+--     ->     IFNULL(SUM(CASE WHEN d.statut = 'Validée' THEN d.duree_conge ELSE 0 END), 0) AS conges_valides,  -- Congés validés
+--     ->     ((TIMESTAMPDIFF(YEAR, p.date_embauche, CURDATE()) * 12) * 2.5) - IFNULL(SUM(d.duree_conge), 0) AS solde_conge  -- Solde de congé restant
+--     -> FROM
+--     ->     personnel p
+--     -> LEFT JOIN
+--     ->     demande_conge d ON p.id_personnel = d.id_personnel
+--     -> GROUP BY
+--     ->     p.id_personnel;
+-- +--------------+--------+--------+--------------+------------------+----------------+-------------+
+-- | id_personnel | nom    | prenom | droits_conge | conges_approuves | conges_valides | solde_conge |
+-- +--------------+--------+--------+--------------+------------------+----------------+-------------+
+-- |            1 | Dupont | Jean   |        120.0 |             0.00 |           5.00 |      115.00 |
+-- |            3 | Durand | Marie  |        180.0 |             0.00 |           0.00 |      179.00 |
+-- |            5 | Martin | Alice  |         90.0 |             0.00 |           0.00 |       90.00 |
+-- +--------------+--------+--------+--------------+------------------+----------------+-------------+
