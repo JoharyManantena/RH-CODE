@@ -16,7 +16,7 @@ public class DocumentFinService {
     }
 
     public List<DocumentFin> getDocumentFinPersonnel(Integer idRuptureContrat) {
-        return this.documentFinRepository.findByIdRuptureContratOrderbydateEmissionAsc(idRuptureContrat);
+        return this.documentFinRepository.findByRuptureContrat_IdRuptureContratOrderByIdDocumentAsc(idRuptureContrat);
     }
 
     public DocumentFin enregistrerDocument(DocumentFin documentFin) {

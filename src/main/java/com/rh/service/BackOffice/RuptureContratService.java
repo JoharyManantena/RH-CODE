@@ -4,42 +4,54 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.rh.model.BackOffice.ContratEmploye;
+import com.rh.model.BackOffice.Personnel;
+import com.rh.model.BackOffice.Rupture;
 import com.rh.model.BackOffice.RuptureContrat;
 import com.rh.repository.RuptureContratRepository;
 
 @Service
 public class RuptureContratService {
+
     private final RuptureContratRepository ruptureContratRepository;
+    
 
-    public RuptureContratService(RuptureContratRepository rpc){
-        this.ruptureContratRepository = rpc;
+    public RuptureContratService(RuptureContratRepository ruptureContratRepository) {
+        this.ruptureContratRepository = ruptureContratRepository;
     }
 
-    public RuptureContrat getByIdPersonnel(int idPersonnel){
-        return this.ruptureContratRepository.findByIdPersonnel(idPersonnel);
+    public RuptureContrat getById(int id){
+        return this.ruptureContratRepository.findById(id).orElse(null);
     }
 
-    public List<RuptureContrat> getIdRuptureContratEtat(int etat){
-        return this.ruptureContratRepository.findByEtatOrderByidRuptureContratAsc(etat);
+    // Récupérer une rupture de contrat par ID du personnel
+    public RuptureContrat getByIdPersonnel(int idPersonnel) {
+        return this.ruptureContratRepository.findByPersonnel_IdPersonnel(idPersonnel);
     }
 
-    public RuptureContrat enregitrerRupture(RuptureContrat rpc){
-        return this.ruptureContratRepository.save(rpc);
+    
+    // Récupérer toutes les ruptures de contrat par état
+    public List<RuptureContrat> getIdRuptureContratEtat(int etat) {
+        return this.ruptureContratRepository.findByEtatOrderByIdRuptureContratAsc(etat);
     }
 
-    public RuptureContrat updateRuptureEtat(Integer id, RuptureContrat rpc){
-        if (!ruptureContratRepository.existsById(id)) {
-            throw new RuntimeException("Rupture contrat not found with id" + id);
-        }
-
-        RuptureContrat existRpc = ruptureContratRepository.findById(id).get();
-
-        existRpc.setEtat(rpc.getEtat());
-        existRpc.setDateEntretient(rpc.getDateEntretient());
-        existRpc.setDateHomologation(rpc.getDateHomologation());
-        existRpc.setIndemnites(rpc.getIndemnites());
-
-        return ruptureContratRepository.save(existRpc);
+    // Enregistrer une nouvelle rupture de contrat
+    public RuptureContrat enregistrerRupture(RuptureContrat ruptureContrat) {
+        return this.ruptureContratRepository.save(ruptureContrat);
     }
 
+    // Mettre à jour l'état d'une rupture de contrat
+    public RuptureContrat updateRuptureEtat(Integer id, RuptureContrat ruptureContratDetails) {
+        RuptureContrat existingRuptureContrat = ruptureContratRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Rupture contrat not found with id: " + id));
+
+        existingRuptureContrat.setEtat(ruptureContratDetails.getEtat());
+        existingRuptureContrat.setDateEntretient(ruptureContratDetails.getDateEntretient());
+        existingRuptureContrat.setDateHomologation(ruptureContratDetails.getDateHomologation());
+        existingRuptureContrat.setIndemnites(ruptureContratDetails.getIndemnites());
+
+        return ruptureContratRepository.save(existingRuptureContrat);
+    }
+
+    // Méthodes spécifiques à implémenter dans les repositories associés
 }

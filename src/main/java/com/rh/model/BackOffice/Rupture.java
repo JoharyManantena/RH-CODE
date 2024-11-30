@@ -11,7 +11,7 @@ public class Rupture {
     @Column(name = "id_rupture")
     private Integer idRupture;
 
-    @Column(name = "types", length = 10)
+    @Column(name = "type_rupture", length = 10)
     private String types;
 
     // Getters et Setters

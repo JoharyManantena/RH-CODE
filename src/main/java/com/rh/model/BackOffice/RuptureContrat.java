@@ -1,9 +1,18 @@
 package com.rh.model.BackOffice;
 
 
-import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "rupture_contrat")
@@ -15,20 +24,21 @@ public class RuptureContrat {
     private Integer idRuptureContrat;
 
     @Column(name = "date_notification", nullable = false)
-    private Date dateNotification;
+    private LocalDate dateNotification;
 
     @Column(name = "date_homologation")
-    private Date dateHomologation;
+    private LocalDate dateHomologation;
 
     @Column(name = "date_entretient")
-    private Date dateEntretient;
+    private LocalDate dateEntretient;
 
     @Lob
     @Column(name = "fichier", columnDefinition = "LONGBLOB")
     private byte[] fichier;
 
-    @Column(name = "indemnites", precision = 15, scale = 2)
+    @Column(name = "indemnites")
     private Double indemnites;
+
 
     @Column(name = "etat")
     private Integer etat;
@@ -42,7 +52,7 @@ public class RuptureContrat {
     private ContratEmploye contratEmploye;
 
     @ManyToOne
-    @JoinColumn(name = "id_peersonel", nullable = false)
+    @JoinColumn(name = "id_personnel", nullable = false)
     private Personnel personnel;
 
     public Personnel getPersonnel() {
@@ -62,27 +72,27 @@ public class RuptureContrat {
         this.idRuptureContrat = idRuptureContrat;
     }
 
-    public Date getDateNotification() {
+    public LocalDate getDateNotification() {
         return dateNotification;
     }
 
-    public void setDateNotification(Date dateNotification) {
+    public void setDateNotification(LocalDate dateNotification) {
         this.dateNotification = dateNotification;
     }
 
-    public Date getDateHomologation() {
+    public LocalDate getDateHomologation() {
         return dateHomologation;
     }
 
-    public void setDateHomologation(Date dateHomologation) {
+    public void setDateHomologation(LocalDate dateHomologation) {
         this.dateHomologation = dateHomologation;
     }
 
-    public Date getDateEntretient() {
+    public LocalDate getDateEntretient() {
         return dateEntretient;
     }
 
-    public void setDateEntretient(Date dateEntretient) {
+    public void setDateEntretient(LocalDate dateEntretient) {
         this.dateEntretient = dateEntretient;
     }
 

@@ -1,8 +1,16 @@
 package com.rh.model.BackOffice;
 
-import jakarta.persistence.*;
+import java.time.LocalDate;
 
-import java.util.Date;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "document_fin")
@@ -17,7 +25,7 @@ public class DocumentFin {
     private String typeDocument;
 
     @Column(name = "date_emission", nullable = false)
-    private Date dateEmission;
+    private LocalDate dateDemission;
 
     @Lob
     @Column(name = "fichier", columnDefinition = "LONGBLOB")
@@ -44,12 +52,12 @@ public class DocumentFin {
         this.typeDocument = typeDocument;
     }
 
-    public Date getDateEmission() {
-        return dateEmission;
+    public LocalDate getDateEmission() {
+        return dateDemission;
     }
 
-    public void setDateEmission(Date dateEmission) {
-        this.dateEmission = dateEmission;
+    public void setDateEmission(LocalDate dateDemission) {
+        this.dateDemission = dateDemission;
     }
 
     public byte[] getFichier() {

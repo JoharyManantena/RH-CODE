@@ -19,6 +19,9 @@ public class ContratEmploye {
     @Column(name = "date_fin")
     private Date dateFin;
 
+    @Column(name = "etat")
+    private Date Etat;
+
     @ManyToOne
     @JoinColumn(name = "id_personnel", nullable = false)
     private Personnel personnel;
@@ -26,6 +29,7 @@ public class ContratEmploye {
     @ManyToOne
     @JoinColumn(name = "id_type", nullable = false)
     private TypeContrat typeContrat;
+
 
     // Getters et Setters
     public Integer getIdContratEmploye() {

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une Rupture de Contrat</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>Ajouter une Rupture de Contrat</h1>
+    <form action="/rupture/save" method="post" enctype="multipart/form-data">
+        <!-- Date de Notification -->
+        <div>
+            <label for="dateNotification">Date de Notification :</label>
+            <input type="date" id="dateNotification" name="dateNotification" required>
+        </div>
+
+        <!-- Date d'Homologation -->
+        <div>
+            <label for="dateHomologation">Date d'Homologation :</label>
+            <input type="date" id="dateHomologation" name="dateHomologation">
+        </div>
+
+        <!-- Date d'Entretien -->
+        <div>
+            <label for="dateEntretient">Date d'Entretien :</label>
+            <input type="date" id="dateEntretient" name="dateEntretient">
+        </div>
+
+        <!-- Fichier (Lettre de Rupture) -->
+        <div>
+            <label for="fichier">Lettre de Rupture :</label>
+            <input type="file" id="fichier" name="fichier" accept=".pdf,.doc,.docx,.png,.jpg">
+        </div>
+
+        <!-- Indemnités -->
+        <div>
+            <label for="indemnites">Indemnités (€) :</label>
+            <input type="number" id="indemnites" name="indemnites" step="0.01" required>
+        </div>
+
+        <!-- État -->
+        <div>
+            <label for="etat">État :</label>
+            <select id="etat" name="etat" required>
+                <option value="0">En attente</option>
+                <option value="1">Approuvé</option>
+                <option value="2">Rejeté</option>
+            </select>
+        </div>
+
+        <!-- Type de Rupture -->
+        <div>
+            <label for="idRupture">Type de Rupture :</label>
+            <select id="idRupture" name="idRupture" required>
+                <option value="" disabled selected>-- Sélectionnez un type --</option>
+                <th:block th:each="rupture : ${ruptureList}">
+                    <option th:value="${rupture.idRupture}" th:text="${rupture.types}"></option>
+                </th:block>
+            </select>
+        </div>
+
+        <!-- Contrat Employé -->
+        <div>
+            <label for="idContratEmploye">ID du Contrat Employé :</label>
+            <input type="number" id="idContratEmploye" name="idContratEmploye" required>
+        </div>
+
+        <!-- Personnel -->
+        <div>
+            <label for="idPersonnel">ID du Personnel :</label>
+            <input type="number" id="idPersonnel" name="idPersonnel" required>
+        </div>
+
+        <!-- Bouton de Soumission -->
+        <div>
+            <button type="submit">Enregistrer</button>
+        </div>
+    </form>
+</body>
+</html>

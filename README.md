@@ -66,8 +66,11 @@ service:
 *-documentFin: *EnvoyerDocument, *voirDocumentbyIdRupture
 
 Controller:
-RuptureController(côté RH).
-ValidationRuptueController(côté Admin).
+-RuptureController(côté RH): InsertionRupture. 
+-ValidationRuptueController(côté Admin): NotificationRuptureRH, ModificationRupture, VoirFicheDePaye, VoirCongée, VoirContrat.
+-VoirRupture(côté Client): NotificationRuptureAdmin
 
 front:
-
+-Rh: formulaire Rupture Contrat
+-Admin: notificationRuptureRh(etat = 0), formulaire Update Rupture Contrat(avec bouttons,VoirFicheDePaye, VoirCongée, VoirContrat ).
+-Client: notificationRuptureAdmin(etat = 1).

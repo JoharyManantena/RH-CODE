@@ -1,3 +1,47 @@
-INSERT INTO Candidat(id_candidat,email,password) VALUES (1,'Candidat','cd');
+INSERT INTO admin (username, password) VALUES
+('admin1', 'password123'),
+('admin2', 'password456');
 
+INSERT INTO Candidat (email, password) VALUES
+('candidat1@example.com', 'passCandidat1'),
+('candidat2@example.com', 'passCandidat2');
+
+INSERT INTO categorie_personnel (nom_categorie, niveau_hierarchique) VALUES
+('Ouvrier', 1),
+('Cadre', 2),
+('Directeur', 3);
+
+INSERT INTO diplome (libelle, niveau) VALUES
+('Baccalauréat', 1),
+('Licence', 2),
+('Master', 3),
+('Doctorat', 4);
+
+INSERT INTO departement (nom_departement) VALUES
+('Informatique'),
+('Ressources Humaines'),
+('Finance'),
+('Marketing');
+
+INSERT INTO cv (nom, prenom, date_naissance, adresse, annees_experience, id_candidat, id_diplome, competence) VALUES
+('Dupont', 'Pierre', '1990-05-15', '123 rue Exemple', 5, 1, 2, 'Développement web, gestion de projet'),
+('Martin', 'Sophie', '1988-08-22', '456 avenue Test', 8, 2, 3, 'Analyse de données, gestion financière');
+
+INSERT INTO type_contrat (nom, abreviation) VALUES
+('CDI', 'Contrat à durée indéterminée'),
+('CDD', 'Contrat à durée déterminée'),
+('Freelance', 'Freelance');
+
+INSERT INTO personnel (nom, prenom, date_naissance, adresse, date_embauche, salaire, id_departement, id_categorie, poste, id_cv) VALUES
+('Durand', 'Claude', '1985-04-12', '789 boulevard Exemple', '2015-01-01', 3500.00, 1, 2, 'Développeur', 1),
+('Lemoine', 'Alice', '1992-03-25', '101 rue Test', '2018-07-15', 4500.00, 2, 1, 'Responsable RH', 2);
+
+INSERT INTO contrat_employe (date_debut, date_fin, id_personnel, id_type, etat) VALUES
+('2015-01-01', '2020-01-01', 1, 1, 1),
+('2018-07-15', '2023-07-15', 2, 2, 0);
+
+INSERT INTO rupture (type_rupture) VALUES
+('Démission'),
+('Licenciement'),
+('Retrait');
 
