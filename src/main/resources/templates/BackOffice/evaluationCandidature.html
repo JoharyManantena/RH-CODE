@@ -25,25 +25,29 @@
                         <label for="noteExperience">Note Expérience :</label>
                         <input type="number" id="noteExperience" name="noteExperience" class="form-control" min="0"
                             max="10"
-                            th:value="${candidature.getEvaluation() != null ? candidature.getEvaluation().getNoteExperience() : 0}">
+                            th:value="${candidature.getEvaluation() != null ? candidature.getEvaluation().getNoteExperience() : 0}"
+                            th:readonly="${candidature.getStatutCandidature().getIdStatut() == 2 || candidature.getStatutCandidature().getIdStatut() == 3}">
                     </div>
                     <div class="form-group">
                         <label for="noteCompetence">Note Compétence :</label>
                         <input type="number" id="noteCompetence" name="noteCompetence" class="form-control" min="0"
                             max="10"
-                            th:value="${candidature.getEvaluation() != null ? candidature.getEvaluation().getNoteCompetence() : 0}">
+                            th:value="${candidature.getEvaluation() != null ? candidature.getEvaluation().getNoteCompetence() : 0}"
+                            th:readonly="${candidature.getStatutCandidature().getIdStatut() == 2 || candidature.getStatutCandidature().getIdStatut() == 3}">
                     </div>
                     <div class="form-group">
                         <label for="noteAdequation">Note Adéquation :</label>
                         <input type="number" id="noteAdequation" name="noteAdequation" class="form-control" min="0"
                             max="10"
-                            th:value="${candidature.getEvaluation() != null ? candidature.getEvaluation().getNoteAdequation() : 0}">
+                            th:value="${candidature.getEvaluation() != null ? candidature.getEvaluation().getNoteAdequation() : 0}"
+                            th:readonly="${candidature.getStatutCandidature().getIdStatut() == 1 || candidature.getStatutCandidature().getIdStatut() == 3}">
                     </div>
                     <div class="form-group">
                         <label for="noteEntretien">Note Entretien :</label>
                         <input type="number" id="noteEntretien" name="noteEntretien" class="form-control" min="0"
                             max="10"
-                            th:value="${candidature.getEvaluation() != null ? candidature.getEvaluation().getNoteEntretien() : 0}">
+                            th:value="${candidature.getEvaluation() != null ? candidature.getEvaluation().getNoteEntretien() : 0}"
+                            th:readonly="${candidature.getStatutCandidature().getIdStatut() == 1 || candidature.getStatutCandidature().getIdStatut() == 3}">
                     </div>
                     <p th:if="${candidature.getEvaluation() != null}">
                         Note totale candidature : <span th:text="${candidature.getEvaluation().getNoteTotale()}"></span>
@@ -101,7 +105,7 @@
                             <label for="heureEntretien">Heure de l'entretien :</label>
                             <input type="time" id="heureEntretien" name="heureEntretien" class="form-control" required>
                         </div>
-                        <input type="hidden" id="idCandidature" name="idCandidature" >
+                        <input type="hidden" id="idCandidature" name="idCandidature">
                     </form>
                 </div>
                 <div class="modal-footer">

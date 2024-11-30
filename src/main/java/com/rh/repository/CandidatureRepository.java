@@ -10,10 +10,12 @@ import org.springframework.data.repository.query.Param;
 import com.rh.model.BackOffice.Candidature;
 import com.rh.model.BackOffice.StatutCandidature;
 
-public interface CandidatureRepository extends JpaRepository<Candidature, Integer>{
-    
+public interface CandidatureRepository extends JpaRepository<Candidature, Integer> {
+
     List<Candidature> findByStatutCandidature_IdStatut(Integer idStatut);
-    
+
+    List<Candidature> findByStatutCandidature_IdStatutIn(List<Integer> idsStatut);
+
     @Modifying
     @Query("UPDATE Candidature c SET c.statutCandidature = :statut WHERE c.idCandidature = :id")
     int updateStatutById(@Param("id") Integer id, @Param("statut") StatutCandidature statut);

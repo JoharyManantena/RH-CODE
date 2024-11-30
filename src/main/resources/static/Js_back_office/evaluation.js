@@ -16,15 +16,28 @@
             });
 
             if (response.status === "success") {
-                if (response.estPlanifier) {
+                if (response.estPlanifier && response.entretienFini) {
                     // Si l'entretien est déjà planifié
+                    const idCandidature = response.idCandidature;
                     Swal.fire({
                         title: 'Évaluation soumise avec succès !',
-                        text: 'Un entretien est déjà planifié pour ce candidat.',
-                        icon: 'info',
-                        confirmButtonText: 'OK'
-                    }).then(() => {
-                        window.location.href = `/candidatures`; // Redirection ou autre action
+                        text: 'Entretien terminé avec note totale de ${response.noteTotale}, Voulez vous accepter ce candidat',
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonText: 'Accepter',
+                        cancelButtonText: 'Rejeter',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $("#idCandidature").val(idCandidature);
+                            console.log("ID Candidature dans le champ caché : ", $("#idCandidature").val());
+                            window.location.href = `/accepter?idCandidature=${idCandidature}`;
+                        }else {
+                            $("#idCandidature").val(response.idCandidature);
+                            console.log("ID Candidature dans le champ caché : ", $("#idCandidature").val());
+                            window.location.href = `/rejeter?idCandidature=${idCandidature}`;
+                        }
+                        // window.location.href = `/candidatures`; // Redirection ou autre action
                     });
                 } else {
                     // Si l'entretien n'est pas encore planifié

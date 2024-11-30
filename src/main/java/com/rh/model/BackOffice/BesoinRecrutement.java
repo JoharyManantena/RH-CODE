@@ -26,6 +26,9 @@ public class BesoinRecrutement {
     @JoinColumn(name = "id_diplome", nullable = false) // Clé étrangère vers Diplome
     private Diplome diplome;
 
+    @Column(name = "nombre_besoin")
+    private Integer nombreBesoin;
+
     // Getters et Setters
 
     public Integer getIdBesoinRecrutement() {
@@ -66,5 +69,13 @@ public class BesoinRecrutement {
 
     public void setDiplome(Diplome diplome) {
         this.diplome = diplome;
+    }
+
+    public Integer getNombreBesoin() {
+        return nombreBesoin;
+    }
+
+    public void setNombreBesoin(Integer nombreBesoin) {
+        this.nombreBesoin = nombreBesoin;
     }
 }

@@ -35,6 +35,7 @@ CREATE TABLE besoin_recrutement(
    date_demande DATE NOT NULL,
    annees_experience INT,
    id_diplome INT NOT NULL, -- NIVEAU
+   nombre_besoin INT NOT NULL,
    PRIMARY KEY(id_besoin_recrutement),
    FOREIGN KEY(id_diplome) REFERENCES diplome(id_diplome)
 );
@@ -48,6 +49,7 @@ CREATE TABLE offre_emploi(
    date_publication DATE NOT NULL,
    id_besoin_recrutement INT NOT NULL,
    date_limite_candidature DATE NOT NULL,
+   disponible BOOLEAN DEFAULT TRUE,
    PRIMARY KEY(id_offre_emploi),
    UNIQUE(id_besoin_recrutement),
    FOREIGN KEY(id_besoin_recrutement) REFERENCES besoin_recrutement(id_besoin_recrutement)

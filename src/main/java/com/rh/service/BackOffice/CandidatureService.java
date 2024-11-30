@@ -1,5 +1,6 @@
 package com.rh.service.BackOffice;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -23,13 +24,16 @@ public class CandidatureService {
         return this.candidatureRepository.findAll();
     }
 
-
     public Candidature getById(int idCandidature) {
         return this.candidatureRepository.findById(idCandidature).orElse(null);
     }
 
-
     public Candidature enregistrerCandidature(Candidature candidature) {
         return this.candidatureRepository.save(candidature);
     }
-} 
+
+    public List<Candidature> getListeCandidatureArejeter() {
+        List<Integer> statutList = Arrays.asList(1, 2);
+        return candidatureRepository.findByStatutCandidature_IdStatutIn(statutList);
+    }
+}
