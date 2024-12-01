@@ -9,17 +9,22 @@ import com.rh.repository.OffreEmploiRepository;
 
 @Service
 public class OffreEmploiService {
-    private OffreEmploiRepository offreEmploiRepository;
-    public OffreEmploiService (OffreEmploiRepository oer){
-        this.offreEmploiRepository = oer;
-    }    
 
-    public List<OffreEmploi> getAll(){
-        return this.offreEmploiRepository.findAllByOrderByIdOffreEmploiAsc();
- 
+    private final OffreEmploiRepository offreEmploiRepository;
+
+    public OffreEmploiService(OffreEmploiRepository offreEmploiRepository) {
+        this.offreEmploiRepository = offreEmploiRepository;
     }
 
-    public OffreEmploi getById(Integer id){
-        return this.offreEmploiRepository.findById(id).orElse(null);
+    public List<OffreEmploi> getAll() {
+        try {
+            List<OffreEmploi> offres = offreEmploiRepository.findAll();
+            if (offres.isEmpty()) {
+                throw new RuntimeException("Aucune offre d'emploi trouvée.");
+            }
+            return offres;
+        } catch (Exception e) {
+            throw new RuntimeException("Erreur lors de la récupération des offres d'emploi", e);
+        }
     }
 }

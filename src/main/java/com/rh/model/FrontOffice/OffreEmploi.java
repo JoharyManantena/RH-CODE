@@ -1,18 +1,7 @@
 package com.rh.model.FrontOffice;
 
 import java.time.LocalDate;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "offre_emploi")
@@ -36,16 +25,17 @@ public class OffreEmploi {
     private String fourchetteSalaire;
 
     @Column(name = "date_publication", nullable = false)
-    @Temporal(TemporalType.DATE)
     private LocalDate datePublication;
 
     @Column(name = "date_limite_candidature", nullable = false)
-    @Temporal(TemporalType.DATE)
     private LocalDate dateLimiteCandidature;
 
     @ManyToOne
-    @JoinColumn(name = "id_besoin_recrutement", nullable = false, unique = true) // Clé étrangère
+    @JoinColumn(name = "id_besoin_recrutement", nullable = false)
     private BesoinRecrutement besoinRecrutement;
+
+    @Column(name = "disponible", nullable = true)
+    private Boolean disponible = true; // Valeur par défaut
 
     // Getters et Setters
 
@@ -113,17 +103,28 @@ public class OffreEmploi {
         this.besoinRecrutement = besoinRecrutement;
     }
 
+    public Boolean getDisponible() {
+        return disponible;
+    }
 
+    public void setDisponible(Boolean disponible) {
+        this.disponible = disponible;
+    }
 
-    public OffreEmploi(String titre, String description, LocalDate dateOffre, String responsabilite, LocalDate dateLimite) {
-        setTitrePoste(titre);
-        setDescriptionPoste(description);
-        setDatePublication(dateOffre);
-        setResponsabilitePrincipale(responsabilite);
-        setDateLimiteCandidature(dateLimite);
+    // Constructeurs
+
+    public OffreEmploi(Integer idOffreEmploi, String titre, String salaire, String description, LocalDate dateOffre, String responsabilite, LocalDate dateLimite, BesoinRecrutement besoin, Boolean disponible) {
+        this.idOffreEmploi = idOffreEmploi;
+        this.titrePoste = titre;
+        this.descriptionPoste = description;
+        this.datePublication = dateOffre;
+        this.responsabilitePrincipale = responsabilite;
+        this.dateLimiteCandidature = dateLimite;
+        this.fourchetteSalaire = salaire;
+        this.besoinRecrutement = besoin;
+        this.disponible = disponible;
     }
 
     public OffreEmploi() {
-        
     }
 }
