@@ -36,6 +36,7 @@ CREATE TABLE besoin_recrutement(
    annees_experience INT,
    id_diplome INT NOT NULL, -- NIVEAU
    nombre_besoin INT NOT NULL,
+   est_fait BOOLEAN DEFAULT FALSE,
    PRIMARY KEY(id_besoin_recrutement),
    FOREIGN KEY(id_diplome) REFERENCES diplome(id_diplome)
 );

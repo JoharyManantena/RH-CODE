@@ -79,117 +79,24 @@
             <div class="theme-setting-wrapper">
                 <nav class="sidebar sidebar-offcanvas" id="sidebar" th:fragment="sidebar">
                     <ul class="nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="../../index.html">
-                                <i class="icon-grid menu-icon"></i>
-                                <span class="menu-title">Home</span>
-                            </a>
-                        </li>
                         <!-- <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false"
-                                aria-controls="ui-basic">
-                                <i class="icon-layout menu-icon"></i>
-                                <span class="menu-title">UI Elements</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="collapse" id="ui-basic">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="../../pages/ui-features/buttons.html">Buttons</a></li>
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="../../pages/ui-features/dropdowns.html">Dropdowns</a></li>
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="../../pages/ui-features/typography.html">Typography</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false"
-                                aria-controls="form-elements">
-                                <i class="icon-columns menu-icon"></i>
-                                <span class="menu-title">Form elements</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="collapse" id="form-elements">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"><a class="nav-link"
-                                            href="../../pages/forms/basic_elements.html">Basic Elements</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false"
-                                aria-controls="charts">
-                                <i class="icon-bar-graph menu-icon"></i>
-                                <span class="menu-title">Charts</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="collapse" id="charts">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="../../pages/charts/chartjs.html">ChartJs</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false"
-                                aria-controls="tables">
-                                <i class="icon-grid-2 menu-icon"></i>
-                                <span class="menu-title">Tables</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="collapse" id="tables">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="../../pages/tables/basic-table.html">Basic table</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false"
-                                aria-controls="icons">
-                                <i class="icon-contract menu-icon"></i>
-                                <span class="menu-title">Icons</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="collapse" id="icons">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" href="../../pages/icons/mdi.html">Mdi
-                                            icons</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false"
-                                aria-controls="auth">
-                                <i class="icon-head menu-icon"></i>
-                                <span class="menu-title">User Pages</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="collapse" id="auth">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" href="../../pages/samples/login.html">
-                                            Login
-                                        </a></li>
-                                    <li class="nav-item"> <a class="nav-link" href="../../pages/samples/register.html">
-                                            Register </a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false"
-                                aria-controls="error">
-                                <i class="icon-ban menu-icon"></i>
-                                <span class="menu-title">Error pages</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../../pages/documentation/documentation.html">
-                                <i class="icon-paper menu-icon"></i>
-                                <span class="menu-title">Documentation</span>
+                            <a class="nav-link" href="/creationOffre">
+                                <i class="icon-grid menu-icon"></i>
+                                <span class="menu-title">Creation Offre</span>
                             </a>
                         </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/candidatures">
+                                <i class="icon-grid menu-icon"></i>
+                                <span class="menu-title">Candidatures</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/besoinRecrutement">
+                                <i class="icon-grid menu-icon"></i>
+                                <span class="menu-title">liste besoin</span>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
 
@@ -217,143 +124,134 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
 
-        <!-- Script du modal consultation CV -->
-        <div id="myModal" class="modal" style="display: none;">
+        <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2>Informations sur la Candidature</h2>
 
-                <!-- Contenu statique de la modal -->
-                <div id="modalContent">
-                    <!-- Le contenu dynamique sera injecté ici par JavaScript -->
+                <!-- Contenu dynamique de la modal -->
+                <div id="modalContent"></div>
+
+                <!-- Section des boutons -->
+                <div class="modal-actions">
+                    <button id="autoEvaluate" class="button">Évaluer
+                        automatiquement</button>
+                    <a id="manualEvaluate" href="#">
+                        <button class="button button-secondary">Évaluer manuellement</button>
+                    </a>
                 </div>
             </div>
         </div>
+
 
         <!-- Style amélioré pour la modal -->
         <style>
             /* Fond semi-transparent */
             .modal {
                 display: none;
-                /* Cacher la modal par défaut */
                 position: fixed;
-                /* Rester en place */
                 z-index: 1000;
-                /* Assurer qu'il est au-dessus du contenu */
                 left: 0;
                 top: 0;
                 width: 100%;
-                /* Prendre toute la largeur de l'écran */
                 height: 100%;
-                /* Prendre toute la hauteur de l'écran */
-                background-color: rgba(0, 0, 0, 0.5);
-                /* Fond sombre semi-transparent */
+                background-color: rgba(0, 0, 0, 0.6);
                 padding-top: 60px;
-                /* Décalage du contenu */
                 transition: opacity 0.3s ease-in-out;
-                /* Transition douce pour l'affichage */
             }
 
             /* Contenu de la modal */
             .modal-content {
                 background-color: #fff;
                 margin: 5% auto;
-                /* Centrer la modal horizontalement et verticalement */
                 padding: 30px;
-                border-radius: 10px;
-                /* Coins arrondis */
-                width: 60%;
-                /* Largeur de la modal */
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                /* Ombre portée */
+                border-radius: 15px;
+                width: 50%;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+                position: relative;
                 animation: fadeIn 0.5s ease-in-out;
-                /* Animation d'apparition */
             }
 
-            /* Animation d'apparition */
             @keyframes fadeIn {
                 from {
                     opacity: 0;
+                    transform: translateY(-10%);
                 }
 
                 to {
                     opacity: 1;
+                    transform: translateY(0);
                 }
             }
 
-            /* Bouton de fermeture */
             .close {
                 color: #aaa;
                 font-size: 28px;
                 font-weight: bold;
                 position: absolute;
-                top: 10px;
+                top: 15px;
                 right: 20px;
                 cursor: pointer;
             }
 
-            .close:hover,
-            .close:focus {
+            .close:hover {
                 color: black;
-                text-decoration: none;
-                cursor: pointer;
             }
 
-            /* Texte et détails du candidat */
             .modal-content h2 {
                 color: #333;
-                font-size: 24px;
+                font-size: 26px;
+                text-align: center;
                 margin-bottom: 20px;
-            }
-
-            .modal-content h3 {
-                color: #555;
-                font-size: 20px;
-                margin-bottom: 15px;
             }
 
             .modal-content p {
                 color: #666;
                 font-size: 16px;
-                line-height: 1.6;
+                margin: 10px 0;
             }
 
             .modal-content p strong {
-                font-weight: bold;
                 color: #333;
             }
 
-            /* Mise en forme des informations */
-            .modal-content .info-group {
-                margin-bottom: 20px;
+            /* Actions de la modal */
+            .modal-actions {
+                margin-top: 20px;
+                text-align: center;
             }
 
-            .modal-content .info-group p {
-                margin: 5px 0;
-            }
-
-            /* Boutons (si ajoutés) */
-            .modal-content .button {
+            .button {
                 background-color: #007BFF;
-                color: white;
-                border: none;
+                color: #fff;
                 padding: 10px 20px;
+                border: none;
                 border-radius: 5px;
                 cursor: pointer;
                 font-size: 16px;
+                margin: 5px;
+                text-decoration: none;
             }
 
-            .modal-content .button:hover {
+            .button-secondary {
+                background-color: #6c757d;
+            }
+
+            .button:hover {
                 background-color: #0056b3;
+            }
+
+            .button-secondary:hover {
+                background-color: #5a6268;
             }
         </style>
         <script>
             function showModal(row) {
                 // Récupérer les données dynamiques de l'attribut data-* de la ligne
-                var cvNom = row.getAttribute('data-nom'); // Récupère le nom du CV
-                var cvPrenom = row.getAttribute('data-prenom'); // Récupère le prénom du CV
-                var cvDateNaissance = row.getAttribute('data-date-naissance'); // Récupère la date de naissance
-                var cvEmail = row.getAttribute('data-email'); // Récupère l'email du candidat
+                var cvNom = row.getAttribute('data-nom');
+                var cvPrenom = row.getAttribute('data-prenom');
+                var cvDateNaissance = row.getAttribute('data-date-naissance');
+                var cvEmail = row.getAttribute('data-email');
                 var nivDiplome = row.getAttribute('data-niveauDiplome');
                 var libDiplome = row.getAttribute('data-libDiplome');
                 var anneeExp = row.getAttribute('data-annee-experience');
@@ -361,35 +259,53 @@
                 var competence = row.getAttribute('data-competence');
                 var id = row.getAttribute('data-id');
                 var idStatut = row.getAttribute('data-idStatut');
+
                 // Préparer le contenu dynamique pour la modal
                 var modalContent = `
-                    <h3>Candidat : ${cvNom} ${cvPrenom}</h3>
-                    <p><strong>Date de naissance : </strong>${cvDateNaissance}</p>
-                    <p><strong>Email : </strong>${cvEmail}</p>
-                    <p><strong>Diplome : </strong>${nivDiplome} en ${libDiplome}</p>
-                    <p><strong>Annee experience : </strong>${anneeExp}  annees</p>
-                    <p><strong>Competence : </strong>${competence}</p>
-                    <p><strong>Statut candidature : </strong>${statut}</p>
-                `;
+        <h3>Candidat : ${cvNom} ${cvPrenom}</h3>
+        <p><strong>Date de naissance : </strong>${cvDateNaissance}</p>
+        <p><strong>Email : </strong>${cvEmail}</p>
+        <p><strong>Diplome : </strong>${nivDiplome} en ${libDiplome}</p>
+        <p><strong>Année d'expérience : </strong>${anneeExp} années</p>
+        <p><strong>Compétences : </strong>${competence}</p>
+        <p><strong>Statut candidature : </strong>${statut}</p>
+    `;
 
-                // Condition pour afficher le bouton Evaluer
-                if (idStatut != 4 && idStatut != 3) { // Remplacez `conditionEvaluer` par votre condition
-                    modalContent += `<a href='/evaluation?idCandidature=${id}'><button>Evaluer</button></a>`;
-                }
-
-                // Ajouter le contenu dynamique à la modal
+                // Injecter le contenu
                 document.getElementById('modalContent').innerHTML = modalContent;
+
+                // Récupérer les boutons
+                const autoEvaluateButton = document.getElementById('autoEvaluate');
+                const manualEvaluateButton = document.getElementById('manualEvaluate');
+
+                // Définir les conditions pour afficher ou masquer les boutons
+                if (idStatut != 4 && idStatut != 3) { // Conditions pour afficher les boutons
+                    autoEvaluateButton.style.display = 'inline-block';
+                    manualEvaluateButton.style.display = 'inline-block';
+                    manualEvaluateButton.href = `/evaluation?idCandidature=${id}`;
+                } else { // Masquer les boutons si conditions non remplies
+                    autoEvaluateButton.style.display = 'none';
+                    manualEvaluateButton.style.display = 'none';
+                }
 
                 // Afficher la modal
                 document.getElementById('myModal').style.display = "block";
             }
 
-
-            // Fonction pour fermer la modal
             function closeModal() {
                 document.getElementById('myModal').style.display = "none";
             }
+
+
+
         </script>
+        <script src="../../Js_back_office/evaluation.js"></script>
+        <script src="../../js2/jquery.min.js"></script>
+        <script src="../../js2/bootstrap.bundle.js"></script>
+        <script src="../../nodeModules/sweetalert2/dist/sweetalert2.all.js"></script>
+        <script src="../../Js_back_office/evaluation.js"></script>
+
+
 
 </body>
 

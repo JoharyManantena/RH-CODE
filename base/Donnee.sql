@@ -13,10 +13,10 @@ INSERT INTO departement (nom_departement) VALUES
 ('Recherche et Développement');
 
 
-INSERT INTO besoin_recrutement (id_departement, date_demande, annees_experience, id_diplome) VALUES
-(1, '2024-11-01', 2, 1), -- Licence
-(2, '2024-11-05', 3, 2), -- Master
-(3, '2024-11-10', 5, 3); -- Doctorat
+INSERT INTO besoin_recrutement (id_departement, date_demande, annees_experience, id_diplome, nombre_besoin) VALUES
+(1, '2024-11-01', 2, 1, 4), -- Licence
+(2, '2024-11-05', 3, 2, 2), -- Master
+(3, '2024-11-10', 5, 3, 3); -- Doctorat
 
 
 INSERT INTO Candidat (id_candidat, email, password) VALUES
@@ -59,15 +59,15 @@ INSERT INTO statut_candidature (id_statut, libelle) VALUES
 
 
 INSERT INTO candidature (date_postulation, id_cv, id_candidat, id_offre_emploi, id_statut_candidature) VALUES
-('2024-11-16', 1, 1, 1, 2),
-('2024-11-17', 2, 2, 1, 2),
-('2024-11-18', 3, 3, 2, 2),
-('2024-11-19', 4, 4, 2, 2),
-('2024-11-20', 5, 5, 3, 2),
-('2024-11-21', 6, 6, 3, 2),
-('2024-11-22', 7, 7, 1, 2),
-('2024-11-23', 8, 8, 1, 2),
-('2024-11-24', 9, 9, 2, 2),
-('2024-11-25', 10, 10, 3, 2);
+('2024-11-16', 1, 1, 7, 1),
+('2024-11-17', 2, 2, 7, 1),
+('2024-11-18', 3, 3, 7, 1),
+('2024-11-19', 4, 4, 7, 1),
+('2024-11-20', 5, 5, 7, 1),
+('2024-11-21', 6, 6, 7, 1),
+('2024-11-22', 7, 7, 7, 1),
+('2024-11-23', 8, 8, 7, 1),
+('2024-11-24', 9, 9, 7, 1),
+('2024-11-25', 10, 10, 7, 1);
 
 

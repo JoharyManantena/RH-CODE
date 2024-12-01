@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rh.model.BackOffice.BesoinRecrutement;
 import com.rh.model.BackOffice.Candidat;
 import com.rh.model.BackOffice.Candidature;
+import com.rh.model.BackOffice.Cv;
 import com.rh.model.BackOffice.Evaluation;
 import com.rh.model.BackOffice.Notification;
 import com.rh.model.BackOffice.OffreEmploi;
@@ -185,6 +188,21 @@ public class EvaluationController {
             // Sauvegarder la notification dans la base de données
             this.notificationService.envoyerNotification(notification);
         }
+    }
+
+    @PostMapping("/auto")
+    public ResponseEntity<String> evaluerAutomatiquement(@RequestParam int idCv, @RequestParam int idBesoin) {
+        Cv cv = cvService.getById(idCv);
+        BesoinRecrutement besoin = besoinService.getById(idBesoin);
+
+        if (cv == null || besoin == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("CV ou Besoin introuvable");
+        }
+
+        Evaluation evaluation = evaluationService.evaluerAutomatiquement(cv, besoin);
+
+        return ResponseEntity
+                .ok("Évaluation automatique réussie avec une note totale de : " + evaluation.getNoteTotale());
     }
 
 }

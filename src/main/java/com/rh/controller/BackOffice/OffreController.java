@@ -40,7 +40,9 @@ public class OffreController {
             System.out.println("Annee d'experience = " + br.getAnneesExperience());
         }
         oe.setBesoinRecrutement(br);
+        br.setFait(true);
         this.offreEmploiService.enregistrerOffre(oe);
+        this.besoinRecrutementService.enregistrerBesoinRecrutement(br);
         return "redirect:/";
     }
 

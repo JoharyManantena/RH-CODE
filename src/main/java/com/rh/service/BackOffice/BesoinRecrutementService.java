@@ -17,4 +17,8 @@ public class BesoinRecrutementService {
     public BesoinRecrutement getById(int id) {
         return besoinRecrutementRespository.findById(id).orElse(null);
     }
+
+    public BesoinRecrutement enregistrerBesoinRecrutement(BesoinRecrutement br) {
+        return this.besoinRecrutementRespository.save(br);
+    }
 }

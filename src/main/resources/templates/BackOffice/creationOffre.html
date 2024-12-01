@@ -1,6 +1,6 @@
 <div class="card" th:fragment="content">
     <div class="card-body">
-        <h4 class="card-title">Nouvelle offre d'emploi</h4>
+        <h4 class="card-title">Creer offre pour le departement <span style="color: rgb(9, 2, 99);" th:text="${besoin.getDepartement().getNomDepartement()}"></span></h4>
         <form class="form-sample" action="/creerOffre" method="get">
             <p class="card-description">
                 informations
@@ -51,7 +51,7 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" name="idDemandeBesoin" value="1">
+            <input type="hidden" name="idDemandeBesoin" th:value="${besoin.getIdBesoinRecrutement()}">
             <button type="submit" class="btn btn-primary">Publier</button>
         </form>
     </div>

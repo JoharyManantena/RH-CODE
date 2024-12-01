@@ -1,0 +1,38 @@
+<div class="col-lg-12 grid-margin stretch-card" th:fragment="content">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Liste des Besoins de Recrutement</h4>
+            <p class="card-description">Liste des besoins disponibles pour la création d'offres d'emploi</p>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Département</th>
+                            <th>Date Demande</th>
+                            <th>Années Expérience</th>
+                            <th>Diplôme Requis</th>
+                            <th>Nombre Besoin</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="besoin : ${listeBesoin}">
+                            <td th:text="${besoin.idBesoinRecrutement}"></td>
+                            <td th:text="${besoin.getDepartement().getNomDepartement()}"></td>
+                            <td th:text="${#temporals.format(besoin.getDateDemande(), 'dd MMMM yyyy')}"></td>
+                            <td th:text="${besoin.anneesExperience != null ? besoin.anneesExperience : 'Aucune'}"></td>
+                            <td th:text="${besoin.diplome.libelle}"></td>
+                            <td th:text="${besoin.nombreBesoin}"></td>
+                            <td>
+                                <a th:href="@{'/creationOffre?idBesoinRecrutement=' + ${besoin.idBesoinRecrutement}}" class="btn btn-primary btn-sm">
+                                    Créer Offre
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
