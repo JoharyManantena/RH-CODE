@@ -51,15 +51,13 @@ public class DemandeCongeController {
         Personnel personnel = personnelRepository.findById(demandeConge.getPersonnel().getIdPersonnel())
             .orElseThrow(() -> new IllegalArgumentException("Personnel non trouvé"));
 
-        // Vérifier si le cumulMois est < 12
         if (personnel.getCumulMois() < 12) {
             model.addAttribute("errorMessage", "Vous ne pouvez pas prendre de congé, votre cumul de mois est insuffisant.");
             model.addAttribute("personnels", personnelRepository.findAll());
             model.addAttribute("typesConges", typeCongeRepository.findAll());
-            return "demande_conge"; // Retourne au formulaire avec le message d'erreur
+            return "demande_conge";
         }
 
-        // Vérifier si la date de début est après la date de fin
         if (demandeConge.getDateDebut().after(demandeConge.getDateFin())) {
             model.addAttribute("errorMessage", "La date de début doit être antérieure à la date de fin.");
             model.addAttribute("personnels", personnelRepository.findAll());
@@ -67,7 +65,6 @@ public class DemandeCongeController {
             return "demande_conge";
         }
 
-        // Vérifier les champs obligatoires
         if (demandeConge.getPersonnel() == null || demandeConge.getTypeConge() == null) {
             model.addAttribute("errorMessage", "Le personnel et le type de congé sont obligatoires.");
             model.addAttribute("personnels", personnelRepository.findAll());

@@ -135,14 +135,6 @@ CREATE TABLE categorie_personnel (
    PRIMARY KEY(id_categorie)
 );
 
-INSERT INTO categorie_personnel (nom_categorie, niveau_hierarchique)
-VALUES
-('Ouvrier', 1),     
-('Technicien', 2),  
-('Cadre', 3),       
-('Manager', 4),     
-('Directeur', 5); 
-
 
 -- apres embauche 
 CREATE TABLE personnel (
@@ -156,10 +148,10 @@ CREATE TABLE personnel (
    id_departement INT,
    id_categorie INT,
    poste VARCHAR(50),
-   id_cv INT NOT NULL,
+   -- id_cv INT NOT NULL,
    PRIMARY KEY(id_personnel),
-   UNIQUE(id_cv),
-   FOREIGN KEY(id_cv) REFERENCES cv(id_cv),
+   -- UNIQUE(id_cv),
+   -- FOREIGN KEY(id_cv) REFERENCES cv(id_cv),
    FOREIGN KEY(id_categorie) REFERENCES categorie_personnel(id_categorie)
 );
 ALTER TABLE personnel ADD COLUMN cumul_mois INT;
@@ -281,15 +273,6 @@ CREATE TABLE type_conge (
     PRIMARY KEY (id_type_conge)  
 );
 
-INSERT INTO type_conge (nom_conge)
-VALUES 
-('Congés Payés'),
-('Congés Sans Solde'),
-('Congés Spéciaux'),
-('Congés Maladie'),
-('Congés Parentaux'),
-('Congés Sabbatiques'),
-('Congés Formation');
 
 
 CREATE TABLE demande_conge (
@@ -304,33 +287,8 @@ CREATE TABLE demande_conge (
    FOREIGN KEY(id_personnel) REFERENCES personnel(id_personnel),
    FOREIGN KEY(id_type_conge) REFERENCES type_conge(id_type_conge)
 );
-
 ALTER TABLE demande_conge ADD COLUMN duree_conge DECIMAL(15,2);
 
--- INSERT INTO demande_conge (id_personnel, id_type_conge, date_debut, date_fin, duree_conge, statut)
--- VALUES
--- (1, 3, '2024-12-01', '2024-12-05', DATEDIFF('2024-12-05', '2024-12-01') + 1, 'En attente');
-
-
--- ##################################################################
--- ##################################################################
-
-SELECT 
-    p.id_personnel,
-    p.nom,
-    p.prenom,
-    p.date_embauche,
-    TIMESTAMPDIFF(YEAR, p.date_embauche, CURDATE()) AS anciennete,
-    (TIMESTAMPDIFF(YEAR, p.date_embauche, CURDATE()) * 12) * 2.5 AS droits_conge,  -- 2,5 jours de congé par mois
-    IFNULL(SUM(d.duree_conge), 0) AS conges_pris,
-    ((TIMESTAMPDIFF(YEAR, p.date_embauche, CURDATE()) * 12) * 2.5) - IFNULL(SUM(d.duree_conge), 0) AS solde_conge
-FROM 
-    personnel p
-LEFT JOIN 
-    demande_conge d ON p.id_personnel = d.id_personnel
-    AND d.statut = 'Approuvé'  -- Ne compter que les congés approuvés
-GROUP BY 
-    p.id_personnel;
 
 
     
@@ -341,8 +299,8 @@ GROUP BY
 
 CREATE TABLE solde_conge (
    id_personnel INT NOT NULL,
-   solde_initial DECIMAL(15,2),  -- Solde initial de congé
-   solde_restant DECIMAL(15,2),  -- Solde restant de congé
+   solde_initial DECIMAL(15,2),
+   solde_restant DECIMAL(15,2), 
    PRIMARY KEY(id_personnel),
    FOREIGN KEY(id_personnel) REFERENCES personnel(id_personnel)
 );
@@ -355,7 +313,6 @@ CREATE TABLE planning_absence (
    PRIMARY KEY(id_personnel, date_debut),
    FOREIGN KEY(id_personnel) REFERENCES personnel(id_personnel)
 );
-
 
 
 -- heure supplementaire    
@@ -401,24 +358,10 @@ CREATE TABLE fiche_paie (
 
 
 
--- MariaDB [codegestion]> SELECT
---     ->     p.id_personnel,
---     ->     p.nom,
---     ->     p.prenom,
---     ->     (TIMESTAMPDIFF(YEAR, p.date_embauche, CURDATE()) * 12) * 2.5 AS droits_conge,  -- 2,5 jours par mois
---     ->     IFNULL(SUM(CASE WHEN d.statut = 'Approuvé' THEN d.duree_conge ELSE 0 END), 0) AS conges_approuves,  -- Congés approuvés
---     ->     IFNULL(SUM(CASE WHEN d.statut = 'Validée' THEN d.duree_conge ELSE 0 END), 0) AS conges_valides,  -- Congés validés
---     ->     ((TIMESTAMPDIFF(YEAR, p.date_embauche, CURDATE()) * 12) * 2.5) - IFNULL(SUM(d.duree_conge), 0) AS solde_conge  -- Solde de congé restant
---     -> FROM
---     ->     personnel p
---     -> LEFT JOIN
---     ->     demande_conge d ON p.id_personnel = d.id_personnel
---     -> GROUP BY
---     ->     p.id_personnel;
--- +--------------+--------+--------+--------------+------------------+----------------+-------------+
--- | id_personnel | nom    | prenom | droits_conge | conges_approuves | conges_valides | solde_conge |
--- +--------------+--------+--------+--------------+------------------+----------------+-------------+
--- |            1 | Dupont | Jean   |        120.0 |             0.00 |           5.00 |      115.00 |
--- |            3 | Durand | Marie  |        180.0 |             0.00 |           0.00 |      179.00 |
--- |            5 | Martin | Alice  |         90.0 |             0.00 |           0.00 |       90.00 |
--- +--------------+--------+--------+--------------+------------------+----------------+-------------+
+
+
+
+-- ##################################################################
+
+-- ##################################################################
+

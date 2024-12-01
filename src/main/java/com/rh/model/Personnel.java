@@ -1,12 +1,19 @@
 package com.rh.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Personnel {
@@ -20,10 +27,15 @@ public class Personnel {
     private String adresse;
     private Date dateEmbauche;
     private BigDecimal salaire;
-    private Integer cumulMois; // Nouvelle colonne
+    private Integer cumulMois;
     private String poste;
 
-    // Getters et Setters
+    @OneToMany(mappedBy = "personnel", cascade = CascadeType.ALL)
+    private List<DemandeConge> demandesConge;
+
+    @OneToOne(mappedBy = "personnel", cascade = CascadeType.ALL)
+    private SoldeConge soldeConge;
+
 
     public Integer getIdPersonnel() {
         return idPersonnel;
@@ -104,4 +116,32 @@ public class Personnel {
     public void setPoste(String poste) {
         this.poste = poste;
     }
+
+    public List<DemandeConge> getDemandesConge() {
+        return demandesConge;
+    }
+
+    public void setDemandesConge(List<DemandeConge> demandesConge) {
+        this.demandesConge = demandesConge;
+    }
+
+    public SoldeConge getSoldeConge() {
+        return soldeConge;
+    }
+
+    public void setSoldeConge(SoldeConge soldeConge) {
+        this.soldeConge = soldeConge;
+    }
+
+
+    public BigDecimal calculerDroitsConges() {
+        long months = ChronoUnit.MONTHS.between(
+            dateEmbauche.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+            LocalDate.now()
+        );
+        BigDecimal droitsCumules = BigDecimal.valueOf(months * 2.5);
+        BigDecimal plafond = BigDecimal.valueOf(90); // 3 ans x 30 jours
+        return droitsCumules.min(plafond); // Appliquer le plafond
+    }
+
 }

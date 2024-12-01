@@ -1,11 +1,11 @@
 package com.rh.service;
 
 import java.util.List;
-// import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.rh.model.DemandeConge;
@@ -21,9 +21,20 @@ public class DemandeCongeService {
         return demandeCongeRepository.findAll();
     }
 
+    
+    @Transactional
     public DemandeConge saveDemande(DemandeConge demandeConge) {
-        return demandeCongeRepository.save(demandeConge);
+        // Sauvegarder la demande de congé sans validation immédiate
+        DemandeConge savedDemande = demandeCongeRepository.save(demandeConge);
+        try {
+            demandeCongeRepository.validerDemandeConge(savedDemande.getIdDemande());
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erreur lors de l'appel à la procédure stockée", e);
+        }
+    
+        return savedDemande;
     }
+    
 
     public DemandeConge getDemandeById(Integer idDemande) {
         return demandeCongeRepository.findById(idDemande)
