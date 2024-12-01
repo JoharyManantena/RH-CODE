@@ -26,11 +26,11 @@ public class DemandeCongeService {
     public DemandeConge saveDemande(DemandeConge demandeConge) {
         // Sauvegarder la demande de congé sans validation immédiate
         DemandeConge savedDemande = demandeCongeRepository.save(demandeConge);
-        try {
-            demandeCongeRepository.validerDemandeConge(savedDemande.getIdDemande());
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erreur lors de l'appel à la procédure stockée", e);
-        }
+        // try {
+        //     demandeCongeRepository.validerDemandeConge(savedDemande.getIdDemande());
+        // } catch (Exception e) {
+        //     throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erreur lors de l'appel à la procédure stockée", e);
+        // }
     
         return savedDemande;
     }

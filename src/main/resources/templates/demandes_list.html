@@ -66,7 +66,11 @@
         </thead>
         <tbody>
             <tr th:each="demande : ${demandes}">
-                <td th:text="${demande.personnel != null ? (demande.personnel.prenom + ' ' + demande.personnel.nom) : 'Non défini'}"></td>
+                <td>
+                    <a th:href="@{/demandes/solde/{id}(id=${demande.personnel.idPersonnel})}">
+                        <span th:text="${demande.personnel != null ? (demande.personnel.prenom + ' ' + demande.personnel.nom) : 'Non défini'}"></span>
+                    </a>
+                </td>
                 <td th:text="${#dates.format(demande.dateDemande, 'dd-MM-yyyy')}"></td>
                 <td th:text="${#dates.format(demande.dateDebut, 'dd-MM-yyyy')}"></td>
                 <td th:text="${#dates.format(demande.dateFin, 'dd-MM-yyyy')}"></td>

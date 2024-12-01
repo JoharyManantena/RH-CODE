@@ -291,30 +291,6 @@ ALTER TABLE demande_conge ADD COLUMN duree_conge DECIMAL(15,2);
 
 
 
-    
-
-
--- ##################################################################
--- ##################################################################
-
-CREATE TABLE solde_conge (
-   id_personnel INT NOT NULL,
-   solde_initial DECIMAL(15,2),
-   solde_restant DECIMAL(15,2), 
-   PRIMARY KEY(id_personnel),
-   FOREIGN KEY(id_personnel) REFERENCES personnel(id_personnel)
-);
-
--- ########################################
-CREATE TABLE planning_absence (
-   id_personnel INT NOT NULL,
-   date_debut DATE NOT NULL,
-   date_fin DATE NOT NULL,
-   PRIMARY KEY(id_personnel, date_debut),
-   FOREIGN KEY(id_personnel) REFERENCES personnel(id_personnel)
-);
-
-
 -- heure supplementaire    
 
 CREATE TABLE heures_sup (
@@ -327,41 +303,4 @@ CREATE TABLE heures_sup (
    FOREIGN KEY (id_personnel) REFERENCES personnel(id_personnel)
 );
 
-
--- etat de paie
-
--- raha ohatra ka hoe hanao avance , ...
--- ito azo lazaina par defaut car efa misy impot , ... 
--- Ankoatra ny avance () variable
-
-CREATE TABLE etat_paie (
-   id_paie INT AUTO_INCREMENT PRIMARY KEY,
-   id_personnel INTEGER NOT NULL,
-   mois_annee DATE NOT NULL,
-   salaire_base NUMERIC(15, 2) NOT NULL,
-   indemnites NUMERIC(15, 2),
-   retenues NUMERIC(15, 2),
-   salaire_net NUMERIC(15, 2) NOT NULL,
-   FOREIGN KEY (id_personnel) REFERENCES personnel(id_personnel)
-);
-
-
-
-CREATE TABLE fiche_paie (
-   id_fiche_paie INT AUTO_INCREMENT PRIMARY KEY,
-   id_personnel INTEGER NOT NULL,
-   mois_annee DATE NOT NULL,
-   anciennete_jours INTEGER,
-   net_a_payer NUMERIC(15, 2) NOT NULL,
-   FOREIGN KEY (id_personnel) REFERENCES personnel(id_personnel)
-);
-
-
-
-
-
-
--- ##################################################################
-
--- ##################################################################
 

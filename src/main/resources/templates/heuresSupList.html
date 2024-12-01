@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Heures Supplémentaires</title>
+</head>
+<body>
+    <h1>Liste des Heures Supplémentaires</h1>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <!-- <th>ID</th> -->
+                <th>Nom Personnel</th>
+                <th>Prenom</th>
+                <th>Date Heure Supplémentaire</th>
+                <th>Nombre d'Heures</th>
+                <th>Taux Horaire</th>
+                <th>Montant Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="heureSup : ${heuresSups}">
+                <!-- <td th:text="${heureSup.idHeureSup}"></td> -->
+                <td th:text="${heureSup.personnel.nom}"></td>
+                <td th:text="${heureSup.personnel.prenom}"></td>
+                <td th:text="${heureSup.dateHeureSup}"></td>
+                <td th:text="${heureSup.nombreHeures}"></td>
+                <td th:text="${heureSup.tauxHoraire}"></td>
+                <td th:text="${heureSup.montantTotal}"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <a href="/heures-sup/create">Ajouter une Heure Supplémentaire</a>
+</body>
+</html>

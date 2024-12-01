@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+// import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rh.model.DemandeConge;
 import com.rh.model.Personnel;
@@ -51,6 +52,15 @@ public class DemandeCongeController {
         Personnel personnel = personnelRepository.findById(demandeConge.getPersonnel().getIdPersonnel())
             .orElseThrow(() -> new IllegalArgumentException("Personnel non trouvé"));
 
+        double congesRestants = personnel.calculCongesRestants();
+
+        if (congesRestants <= 0) {
+            model.addAttribute("errorMessage", "Vous n'avez plus de congés restants ou vous êtes en solde négatif. Impossible de soumettre une nouvelle demande de congé.");
+            model.addAttribute("personnels", personnelRepository.findAll());
+            model.addAttribute("typesConges", typeCongeRepository.findAll());
+            return "demande_conge";
+        }
+
         if (personnel.getCumulMois() < 12) {
             model.addAttribute("errorMessage", "Vous ne pouvez pas prendre de congé, votre cumul de mois est insuffisant.");
             model.addAttribute("personnels", personnelRepository.findAll());
@@ -73,7 +83,25 @@ public class DemandeCongeController {
         }
 
         demandeCongeService.saveDemande(demandeConge);
+
+
         return "redirect:/demandes";
+    }
+
+    @GetMapping("/solde/{id}")
+    public String afficherSoldeConges(@PathVariable("id") Integer idPersonnel, Model model) {
+        Personnel personnel = personnelRepository.findById(idPersonnel)
+                .orElseThrow(() -> new IllegalArgumentException("Personnel non trouvé"));
+
+        double congesPris = personnel.calculCongesPris();
+        double congesRestants = personnel.calculCongesRestants();
+
+        // Ajouter les données au modèle
+        model.addAttribute("personnel", personnel);
+        model.addAttribute("congesPris", congesPris);
+        model.addAttribute("congesRestants", congesRestants);
+
+        return "solde_conges";  // Vue pour afficher le solde des congés
     }
 
 
@@ -93,6 +121,7 @@ public class DemandeCongeController {
 
         demande.setStatut("Validée");
         demandeCongeRepository.save(demande);
+
 
         return "redirect:/demandes"; 
     }

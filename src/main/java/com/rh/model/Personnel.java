@@ -2,10 +2,11 @@ package com.rh.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Date;
+
+import java.util.List;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -13,7 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+
 
 @Entity
 public class Personnel {
@@ -30,11 +31,10 @@ public class Personnel {
     private Integer cumulMois;
     private String poste;
 
+
     @OneToMany(mappedBy = "personnel", cascade = CascadeType.ALL)
     private List<DemandeConge> demandesConge;
 
-    @OneToOne(mappedBy = "personnel", cascade = CascadeType.ALL)
-    private SoldeConge soldeConge;
 
 
     public Integer getIdPersonnel() {
@@ -125,23 +125,43 @@ public class Personnel {
         this.demandesConge = demandesConge;
     }
 
-    public SoldeConge getSoldeConge() {
-        return soldeConge;
+    public int calculDroitsConges() {
+        LocalDate dateEmbaucheLocalDate = this.dateEmbauche.toInstant()
+                                                            .atZone(ZoneId.systemDefault())
+                                                            .toLocalDate();
+    
+        int moisService = (int) ChronoUnit.MONTHS.between(dateEmbaucheLocalDate, LocalDate.now());
+        int droitsConges = 0;
+    
+        // Calcul des droits en fonction de l'ancienneté
+        if (moisService >= 36) { // 3 ans de service
+            droitsConges = moisService * (5/2) / 12; // 2.5 jours/mois en moyenne 
+        }
+    
+        return droitsConges;
     }
 
-    public void setSoldeConge(SoldeConge soldeConge) {
-        this.soldeConge = soldeConge;
+
+    public double calculCongesPris() {
+        double congesPris = 0;
+        if (this.demandesConge != null) {
+            for (DemandeConge demande : this.demandesConge) {
+                if ("Validée".equals(demande.getStatut())) {
+                    congesPris += demande.getDureeConge();
+                }
+            }
+        }
+        return congesPris;
     }
 
-
-    public BigDecimal calculerDroitsConges() {
-        long months = ChronoUnit.MONTHS.between(
-            dateEmbauche.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
-            LocalDate.now()
-        );
-        BigDecimal droitsCumules = BigDecimal.valueOf(months * 2.5);
-        BigDecimal plafond = BigDecimal.valueOf(90); // 3 ans x 30 jours
-        return droitsCumules.min(plafond); // Appliquer le plafond
+    // Conges restant
+    public double calculCongesRestants() {
+        double droitsConges = calculDroitsConges();
+        double congesPris = calculCongesPris();
+        return droitsConges - congesPris;
     }
 
+    
+    
+    
 }

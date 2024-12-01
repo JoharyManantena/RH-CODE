@@ -8,6 +8,7 @@
 
     <div th:if="${errorMessage}" th:utext="'<script>alert(\'' + ${errorMessage} + '\');</script>'"></div>
 
+
     <form action="/demandes" method="post" th:object="${demandeConge}">
         <label>Personnel :</label>
         <select th:field="*{personnel.idPersonnel}">
@@ -39,6 +40,11 @@
         <br>
 
         <button type="submit">Soumettre</button>
+
+        <div th:if="${errorMessage}" class="error-message">
+            <p th:text="${errorMessage}"></p>
+        </div>
+
     </form>
 </body>
 </html>
