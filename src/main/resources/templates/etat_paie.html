@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau Détail</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tfoot {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>Etat de paie pour le mois <span th:text="${mois}"></span> <span th:text="${annee}"></span></h1>
+    </center>
+    <table>
+        <thead>
+            <tr>
+                <th>N° MATR</th>
+                <th>N° CNAPS</th>
+                <th>NOM et Prénoms</th>
+                <th>Date d'embauche</th>
+                <th>ABSENCE du mois(Taux horaire)</th>
+                <th>CAT</th>
+                <th>Fonction</th>
+                <th>SALAIRE DE BASE</th>
+                <th>RETENUES SUR ABSENCE</th>
+                <th>SALAIRE DE BASE DU MOIS</th>
+                <th>HR SUP/MAJ</th>
+                <th>Salaire brut</th>
+                <th>CNAPS 1%</th>
+                <th>CNAPS 8%</th>
+                <th>OSTIE 1%</th>
+                <th>OSTIE 5%</th>
+                <th>Revenu Imposable</th>
+                <th>Fiche de paie</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="personne : ${liste}" style="cursor: pointer;">
+                <td th:text="${personne.numMatricule}"></td>
+                <td th:text="${personne.numCNaPS}"></td>
+                <td th:text="${personne.nom}  + ' ' + ${personne.prenom}"></td>
+                <td th:text="${#dates.format(personne.dateEmbauche, 'dd-MM-yyyy')}"></td>
+                <td th:text="${personne.absenceMois}"></td>
+                <td th:text="${personne.categorie}"></td>
+                <td th:text="${personne.fonction}"></td>
+                <td th:text="${personne.salaireBase}"></td>
+                <td th:text="${personne.retenuSurAbsence}"></td>
+                <td th:text="${personne.salaireBaseMois}"></td>
+                <td th:text="${personne.heureSuplementaireTotal}"></td>
+                <td th:text="${personne.salaireBrute}"></td>
+                <td th:text="${personne.retenuCNaPS1}"></td>
+                <td th:text="${personne.retenuCNaPS8}"></td>
+                <td th:text="${personne.retenuSanitaire}"></td>
+                <td th:text="${personne.retenuSanitaire8}"></td>
+                <td th:text="${personne.montantImposable}"></td>
+                <td>
+                    <form action="/fichepaie" method="post">
+                        <input type="hidden" name="mois" th:value="${moisInt}">
+                        <input type="hidden" name="annees" th:value="${annee}">
+                        <input type="hidden" name="numMatricule" th:value="${personne.numMatricule}">
+                        <input type="hidden" name="numCNaPS" th:value="${personne.numCNaPS}">
+                        <input type="submit" value="Voir plus">
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+</body>
+</html>

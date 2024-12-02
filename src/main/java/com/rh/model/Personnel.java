@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +20,7 @@ import jakarta.persistence.OneToOne;
 public class Personnel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_personnel")
     private Integer idPersonnel;
 
     private String nom;
@@ -29,6 +31,13 @@ public class Personnel {
     private BigDecimal salaire;
     private Integer cumulMois;
     private String poste;
+    private String numMatricule;
+    private String numCNaPS;
+
+
+    private int id_secteur;
+    private String categorie;
+
 
     @OneToMany(mappedBy = "personnel", cascade = CascadeType.ALL)
     private List<DemandeConge> demandesConge;
@@ -36,6 +45,37 @@ public class Personnel {
     @OneToOne(mappedBy = "personnel", cascade = CascadeType.ALL)
     private SoldeConge soldeConge;
 
+    public String getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
+    }
+    
+    public int getId_secteur() {
+        return id_secteur;
+    }
+
+    public void setId_secteur(int id_secteur) {
+        this.id_secteur = id_secteur;
+    }
+
+    public String getNumCNaPS() {
+        return numCNaPS;
+    }
+
+    public void setNumCNaPS(String numCNaPS) {
+        this.numCNaPS = numCNaPS;
+    }
+
+    public String getNumMatricule() {
+        return numMatricule;
+    }
+
+    public void setNumMatricule(String numMatricule) {
+        this.numMatricule = numMatricule;
+    }
 
     public Integer getIdPersonnel() {
         return idPersonnel;

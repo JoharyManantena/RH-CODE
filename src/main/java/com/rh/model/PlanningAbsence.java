@@ -2,13 +2,7 @@ package com.rh.model;
 
 import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class PlanningAbsence {
@@ -18,15 +12,15 @@ public class PlanningAbsence {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "id_personnel", referencedColumnName = "idPersonnel", nullable = false)
+    @JoinColumn(name = "id_personnel", nullable = false) // Correspond à la clé étrangère dans la base
     private Personnel personnel;
 
-    @Column(nullable = false)
-    private Date dateDebut;
+    @Temporal(TemporalType.DATE)
+    private Date ledate;
 
-    @Column(nullable = false)
-    private Date dateFin;
+    private int durree;
 
+    // Getters et setters
     public Integer getId() {
         return id;
     }
@@ -43,45 +37,19 @@ public class PlanningAbsence {
         this.personnel = personnel;
     }
 
-    public Date getDateDebut() {
-        return dateDebut;
+    public Date getLedate() {
+        return ledate;
     }
 
-    public void setDateDebut(Date dateDebut) {
-        if (dateDebut == null) {
-            throw new IllegalArgumentException("La date de début est obligatoire.");
-        }
-        this.dateDebut = dateDebut;
+    public void setLedate(Date ledate) {
+        this.ledate = ledate;
     }
 
-    public Date getDateFin() {
-        return dateFin;
+    public int getDurree() {
+        return durree;
     }
 
-    public void setDateFin(Date dateFin) {
-        if (dateFin != null && dateFin.before(dateDebut)) {
-            throw new IllegalArgumentException("La date de fin ne peut pas être avant la date de début.");
-        }
-        this.dateFin = dateFin;
+    public void setDurree(int durree) {
+        this.durree = durree;
     }
-
-    /**
-     * Vérifie si une absence chevauche une période donnée.
-     * 
-     * @param autreDebut La date de début de l'autre période.
-     * @param autreFin La date de fin de l'autre période.
-     * @return True si les périodes se chevauchent, False sinon.
-     */
-
-    public boolean chevauche(Date autreDebut, Date autreFin) {
-        if (autreDebut == null || autreFin == null) {
-            throw new IllegalArgumentException("Les dates de comparaison ne peuvent pas être nulles.");
-        }
-        return !(dateFin.before(autreDebut) || dateDebut.after(autreFin));
-    }
-
-    // public boolean absenceChevauche(PlanningAbsence autre) {
-    //     return !(dateFin.before(autre.dateDebut) || dateDebut.after(autre.dateFin));
-    // }
-    
 }

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche de Paie</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        
+        .fiche-paie {
+            width: 80%;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            margin-bottom: 20px;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        
+        header p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        
+        .informations .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .informations .col p {
+            margin: 5px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        table th, table td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 8px;
+        }
+        
+        table th {
+            background-color: #f4f4f4;
+        }
+        
+        table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        footer {
+            text-align: right;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="fiche-paie">
+        <header>
+            <h1>FICHE DE PAIE (<span th:text="${mois}"></span>)</h1>
+        </header>
+
+        <section class="informations">
+            <div class="row">
+                <div class="col">
+                    <p><strong>Nom et Prénoms :</strong> <span th:text="${info.nom}  + ' ' + ${info.prenom}"></span></p>
+                    <p><strong>Matricule :</strong> <span th:text="${info.numMatricule}"></span></p>
+                    <p><strong>Fonction :</strong> <span th:text="${info.fonction}"></span></p>
+                    <p><strong>N° CNAPS :</strong><span th:text="${info.numCNaPS}"></span></p>
+                    <p><strong>Date embauche :</strong> <span th:text="${#dates.format(info.dateEmbauche, 'dd-MM-yyyy')}"></span></p>
+                </div>
+                <div class="col">
+                    <p><strong>Classification :</strong><span th:text="${info.categorie}"></span></p>
+                    <p><strong>Salaire de base :</strong><span th:text="${info.salaireBase}"></span></p>
+                    <p><strong>Taux journalier :</strong><span th:text="${info.tauxJournalier}"></span></p>
+                    <p><strong>Taux horaire :</strong><span th:text="${info.tauxHoraires}"></span></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="salaire">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Désignations</th>
+                        <th>Nombre</th>
+                        <th>Taux</th>
+                        <th>Montant</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Salaire de base -->
+                    <tr>
+                        <td>Salaires de base</td>
+                        <td>1 mois</td>
+                        <td><span th:text="${info.tauxJournalier}"></span></td>
+                        <td><span th:text="${info.salaireBase}"></span></td>
+                    </tr>
+
+                    <!-- Absences déductibles -->
+                    <tr>
+                        <td>Absences déductibles</td>
+                        <td><span th:text="${info.absenceMois}"></span></td>
+                        <td><span th:text="${info.tauxHoraires}"></span></td>
+                        <td><span th:text="${info.retenuSurAbsence}"></span></td>
+                    </tr>
+
+                    <!-- Primes de rendement -->
+                    <tr>
+                        <td>Primes de rendement</td>
+                        <td> </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Primes d'ancienneté -->
+                    <tr>
+                        <td>Primes d'ancienneté</td>
+                        <td> </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Heures supplémentaires majorées de 30% -->
+                    <tr>
+                        <td>Heures supplémentaires majorées de 30%</td>
+                        <td><span th:text="${nb8H}"></span></td>
+                        <td><span th:text="${taux8H}"></span></td>
+                        <td><span th:text="${info.heureSuplementaire8H}"></span></td>
+                    </tr>
+
+                    <!-- Heures supplémentaires majorées de 40% -->
+                    <tr>
+                        <td>Heures supplémentaires majorées de 40%</td>
+                        <td><span th:text="${nbDim}"></span></td>
+                        <td><span th:text="${tauxDim}"></span></td>
+                        <td><span th:text="${info.heureSuplementaireDim}"></span></td>
+                    </tr>
+
+
+                    <!-- Heures supplémentaires majorées de 50% -->
+                    <tr>
+                        <td>Heures supplémentaires majorées de 50%</td>
+                        <td><span th:text="${nb12H}"></span></td>
+                        <td><span th:text="${taux12H}"></span></td>
+                        <td><span th:text="${info.heureSuplementaire12H}"></span></td>
+                    </tr>
+
+
+                    <!-- Heures supplémentaires majorées de 100% -->
+                    <tr>
+                        <td>Heures supplémentaires majorées de 100%</td>
+                        <td><span th:text="${nbFerie}"></span></td>
+                        <td><span th:text="${tauxFerie}"></span></td>
+                        <td><span th:text="${info.heureSuplementaireFerie}"></span></td>
+                    </tr>
+
+                    <!-- Majoration pour heures de nuit -->
+                    <tr>
+                        <td>Majoration pour heures de nuit</td>
+                        <td><span th:text="${nbMinuit}"></span></td>
+                        <td><span th:text="${tauxMinuit}"></span></td>
+                        <td><span th:text="${info.heureSuplementaireMinuit}"></span></td>
+                    </tr>
+
+
+                    <!-- Primes diverses -->
+                    <tr>
+                        <td>Primes diverses</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+
+                    <!-- Rappels sur période antérieure -->
+                    <tr>
+                        <td>Rappels sur période antérieure</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+
+                    <!-- Droits de congés -->
+                    <tr>
+                        <td>Droits de congés</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+
+                    <!-- Droits de préavis -->
+                    <tr>
+                        <td>Droits de préavis</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Indemnités de licenciement -->
+                    <tr>
+                        <td>Indemnités de licenciement</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Salaire brute -->
+                    <tr>
+                        <td colspan="3">Salaire brute</td>
+                        <td><span th:text="${info.salaireBrute}"></span></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </section>
+
+        <section class="retenues">
+            <h2>Retenues</h2>
+            <table>
+                <tbody>
+                    <!-- Retenue CNAPS 1% -->
+                    <tr>
+                        <td>Retenue CNAPS 1%</td>
+                        <td></td>
+                        <td><span th:text="${info.retenuCNaPS1}"></span></td>
+                    </tr>
+
+                    <!-- Retenue sanitaire -->
+                    <tr>
+                        <td>Retenue sanitaire</td>
+                        <td></td>
+                        <td><span th:text="${info.retenuSanitaire}"></span></td>
+                    </tr>
+
+                    <!-- Tranche IRSA INF 350 0000 -->
+                    <tr>
+                        <td>Tranche IRSA INF 350 0000</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <!-- Tranche IRSA I DE 350 0001 à 400 000 -->
+                    <tr>
+                        <td>Tranche IRSA I DE 350 0001 à 400 000</td>
+                        <td>5%</td>
+                        <td><span th:text="${info.irsaEntre350et400}"></span></td>
+                    </tr>
+
+                    <!-- Tranche IRSA I DE 400 0001 à 500 000 -->
+                    <tr>
+                        <td>Tranche IRSA I DE 400 0001 à 500 000</td>
+                        <td>10%</td>
+                        <td><span th:text="${info.irsaEntre400et50}"></span></td>
+                    </tr>
+
+                    <!-- Tranche IRSA I DE 500 001 à 600 000 -->
+                    <tr>
+                        <td>Tranche IRSA I DE 500 001 à 600 000</td>
+                        <td>15%</td>
+                        <td><span th:text="${info.irsaEntre500et600}"></span></td>
+                    </tr>
+
+                    <!-- Tranche IRSA SUP 600 0000 -->
+                    <tr>
+                        <td>Tranche IRSA SUP 600 0000</td>
+                        <td>20%</td>
+                        <td><span th:text="${info.irsaSup600}"></span></td>
+                    </tr>
+
+                    <!-- TOTAL IRSA -->
+                    <tr>
+                        <td colspan="2">TOTAL IRSA</td>
+                        <td><span th:text="${info.totalIrsa}"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <footer>
+            <p><strong>Total des retenues :</strong> <span th:text="${info.totalRetenue}"></span></p>
+            <p><strong>Net à payer :</strong> <span th:text="${info.netApayer}"></span></p>
+            <p>Mode de paiement : Virement/chèque</p>
+            <p><strong>Montant imposable :</strong> <span th:text="${info.montantImposable}"></span></p>
+        </footer>
+    </div>
+    <center>
+        <button>EXPORTER PDF</button>
+    </center>
+</body>
+</html>

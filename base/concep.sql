@@ -125,17 +125,6 @@ CREATE TABLE notification (
 );
 
 
-
-DROP TABLE IF EXISTS categorie_personnel;
--- part 3
-CREATE TABLE categorie_personnel (
-   id_categorie INT AUTO_INCREMENT,
-   nom_categorie VARCHAR(50) NOT NULL, -- ouvrier , cadre , ...
-   niveau_hierarchique INT NOT NULL,
-   PRIMARY KEY(id_categorie)
-);
-
-
 -- apres embauche 
 CREATE TABLE personnel (
    id_personnel INT AUTO_INCREMENT,
@@ -146,7 +135,7 @@ CREATE TABLE personnel (
    date_embauche DATE,
    salaire DECIMAL(15,2),
    id_departement INT,
-   id_categorie INT,
+   categorie VARCHAR(255),
    poste VARCHAR(50),
    -- id_cv INT NOT NULL,
    PRIMARY KEY(id_personnel),
@@ -155,6 +144,8 @@ CREATE TABLE personnel (
    FOREIGN KEY(id_categorie) REFERENCES categorie_personnel(id_categorie)
 );
 ALTER TABLE personnel ADD COLUMN cumul_mois INT;
+ALTER TABLE personnel ADD COLUMN numMatricule VARCHAR(255);
+ALTER TABLE personnel ADD COLUMN numCNaPS VARCHAR(255);
 
 
 
@@ -306,26 +297,27 @@ CREATE TABLE solde_conge (
 );
 
 -- ########################################
-CREATE TABLE planning_absence (
-   id_personnel INT NOT NULL,
-   date_debut DATE NOT NULL,
-   date_fin DATE NOT NULL,
-   PRIMARY KEY(id_personnel, date_debut),
-   FOREIGN KEY(id_personnel) REFERENCES personnel(id_personnel)
-);
+CREATE TABLE `planning_absence` (
+   `id` INT AUTO_INCREMENT,
+  `id_personnel` int(11) NOT NULL,
+  `ledate` date NOT NULL,
+  `durree` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `planning_absence_ibfk_1` FOREIGN KEY (`id_personnel`) REFERENCES `personnel` (`id_personnel`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 -- heure supplementaire    
-
-CREATE TABLE heures_sup (
-   id_heure_sup INT AUTO_INCREMENT PRIMARY KEY,
-   id_personnel INTEGER NOT NULL,
-   date_heure_sup DATE NOT NULL,
-   nombre_heures NUMERIC(5, 2) NOT NULL,
-   taux_horaire NUMERIC(10, 2) NOT NULL,
-   montant_total NUMERIC(15, 2) NOT NULL,
-   FOREIGN KEY (id_personnel) REFERENCES personnel(id_personnel)
-);
+CREATE TABLE `heures_sup` (
+  `id_heure_sup` int(11) NOT NULL AUTO_INCREMENT,
+  `id_personnel` int(11) NOT NULL,
+  `date_heure_sup` date NOT NULL,
+  `nombre_heures` decimal(5,2) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_heure_sup`),
+  KEY `id_personnel` (`id_personnel`),
+  CONSTRAINT `heures_sup_ibfk_1` FOREIGN KEY (`id_personnel`) REFERENCES `personnel` (`id_personnel`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 -- etat de paie
