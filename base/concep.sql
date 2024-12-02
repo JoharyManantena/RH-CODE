@@ -160,7 +160,7 @@ ALTER TABLE personnel ADD COLUMN cumul_mois INT;
 
 
 
-CREATE TABLE test(
+CREATE TABLE test(0
    id_test INT AUTO_INCREMENT,
    date_test DATE,
    id_cv INT,
@@ -272,6 +272,16 @@ CREATE TABLE type_conge (
     nom_conge VARCHAR(50) NOT NULL,  -- Congé payé, maladie, etc.
     PRIMARY KEY (id_type_conge)  
 );
+
+-- INSERT INTO type_conge (nom_conge)
+-- VALUES 
+-- ('Congés Payés'),
+-- ('Congés Sans Solde'),
+-- ('Congés Spéciaux'),
+-- -- ('Congés Maladie'),
+-- -- ('Congés Parentaux'),
+-- ('Congés Sabbatiques'),
+-- ('Congés Formation');
 
 
 

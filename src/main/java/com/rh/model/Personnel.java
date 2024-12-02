@@ -2,11 +2,10 @@ package com.rh.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
-
-import java.util.List;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -94,7 +93,8 @@ public class Personnel {
     }
 
     public Integer getCumulMois() {
-        if (cumulMois < 12) {
+        int cumul = calculerCumulMois();
+        if (cumul < 13) {
             System.out.println("Attention : Vous ne pouvez pas prendre de congé, votre cumul de mois est insuffisant.");
         }
         return cumulMois;
@@ -102,7 +102,8 @@ public class Personnel {
     
 
     public void setCumulMois(Integer cumulMois) {
-        if (cumulMois < 12) {
+        int cumul = calculerCumulMois();
+        if (cumul < 13) {
             System.out.println("Vous ne pouvez pas prendre de congé, votre cumul de mois est insuffisant.");
         }
         this.cumulMois = cumulMois;
@@ -125,21 +126,21 @@ public class Personnel {
         this.demandesConge = demandesConge;
     }
 
-    public int calculDroitsConges() {
+    
+
+    public double calculDroitsConges() {
         LocalDate dateEmbaucheLocalDate = this.dateEmbauche.toInstant()
-                                                            .atZone(ZoneId.systemDefault())
-                                                            .toLocalDate();
+                                                           .atZone(ZoneId.systemDefault())
+                                                           .toLocalDate();
     
         int moisService = (int) ChronoUnit.MONTHS.between(dateEmbaucheLocalDate, LocalDate.now());
-        int droitsConges = 0;
+        double joursParMois = 2.5;
+        int moisCumulable = Math.min(moisService, 12);
     
-        // Calcul des droits en fonction de l'ancienneté
-        if (moisService >= 36) { // 3 ans de service
-            droitsConges = moisService * (5/2) / 12; // 2.5 jours/mois en moyenne 
-        }
-    
-        return droitsConges;
+        return moisCumulable * joursParMois;
     }
+    
+    
 
 
     public double calculCongesPris() {
@@ -162,6 +163,31 @@ public class Personnel {
     }
 
     
+    // public double calculerCongesSpeciaux(String typeConge, double joursPris) {
+    //     if ("Congés Spéciaux".equals(typeConge)) {
+    //         double joursGratuits = 10;  // 10 jours gratuits pour congé spécial
+    //         if (joursPris > joursGratuits) {
+    //             // Déduire les jours supplémentaires pris au-delà de 10 jours gratuits
+    //             double joursDeduits = joursPris - joursGratuits;
+    //             System.out.println("Jours de congé spéciaux déduits du solde : " + joursDeduits);
+    //             return joursDeduits;
+    //         }
+    //     }
+    //     return 0; // Si aucun congé spécial n'est pris ou si moins de 10 jours pris
+    // }
+
     
+    public int  calculerCumulMois() {
+        if (this.dateEmbauche != null) {
+            LocalDate dateEmbaucheLocalDate = this.dateEmbauche.toInstant()
+                                                               .atZone(ZoneId.systemDefault())
+                                                               .toLocalDate();
+
+            
+            long moisService = ChronoUnit.MONTHS.between(dateEmbaucheLocalDate, LocalDate.now());
+            this.cumulMois = (int) moisService;
+        }
+                return cumulMois;
+    }
     
 }

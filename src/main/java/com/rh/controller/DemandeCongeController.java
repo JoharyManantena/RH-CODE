@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-// import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rh.model.DemandeConge;
 import com.rh.model.Personnel;
@@ -45,6 +44,11 @@ public class DemandeCongeController {
     public String afficherDemandes(Model model) {
         model.addAttribute("demandes", demandeCongeService.getAllDemandes());
         return "demandes_list";
+    }
+    @GetMapping("/emp")
+    public String afficherDemandesEmp(Model model) {
+        model.addAttribute("demandes", demandeCongeService.getAllDemandes());
+        return "listePourPersonnel";
     }
 
     @PostMapping
@@ -88,20 +92,28 @@ public class DemandeCongeController {
         return "redirect:/demandes";
     }
 
+
+
     @GetMapping("/solde/{id}")
     public String afficherSoldeConges(@PathVariable("id") Integer idPersonnel, Model model) {
         Personnel personnel = personnelRepository.findById(idPersonnel)
                 .orElseThrow(() -> new IllegalArgumentException("Personnel non trouvé"));
 
-        double congesPris = personnel.calculCongesPris();
-        double congesRestants = personnel.calculCongesRestants();
+        double droitConger = (int) personnel.calculDroitsConges();
+        double congesPris = (int) personnel.calculCongesPris();
+        double congesRestants = (int) personnel.calculCongesRestants();
 
-        // Ajouter les données au modèle
+        Integer cumulAffiche = personnel.getCumulMois();
+
+
         model.addAttribute("personnel", personnel);
+        model.addAttribute("droit", droitConger);
         model.addAttribute("congesPris", congesPris);
         model.addAttribute("congesRestants", congesRestants);
 
-        return "solde_conges";  // Vue pour afficher le solde des congés
+        model.addAttribute("cumulAffiche", cumulAffiche);
+
+        return "solde_conges";
     }
 
 

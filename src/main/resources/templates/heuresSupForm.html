@@ -10,7 +10,8 @@
     <form th:action="@{/heures-sup/create}" th:object="${heuresSup}" method="post">
         <label for="personnel.idPersonnel">ID Personnel</label>
         <input type="text" id="personnel.idPersonnel" th:field="*{personnel.idPersonnel}" />
-        
+        <br>
+        <br>
         <label for="date_heure_sup">Date Heure Supplémentaire:</label>
         <input type="date" id="date_heure_sup" th:field="*{dateHeureSup}" required><br><br>
         
@@ -26,5 +27,9 @@
     <div th:if="${message}">
         <p th:text="${message}"></p>
     </div>
+
+    <br><br>
+
+    <a th:href="@{list}">Voir Liste Heure Supl</a>
 </body>
 </html>
