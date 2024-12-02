@@ -71,3 +71,20 @@ INSERT INTO candidature (date_postulation, id_cv, id_candidat, id_offre_emploi, 
 ('2024-11-25', 10, 10, 7, 1);
 
 
+ALTER TABLE cv 
+ADD COLUMN disponibilite ENUM('Immediate', '1 mois', '3 mois', 'Non disponible') DEFAULT 'Immediate';
+
+
+INSERT INTO type_contrat (nom, abreviation) VALUES 
+('Contrat a Duree Indeterminee', 'CDI'),
+('Contrat a Duree Determinee', 'CDD'),
+('Contrat de Travail Temporaire', 'CTT'),
+('Contrat dApprentissage', 'CA'),
+('Contrat de Professionnalisation', 'CP'),
+('Stage', 'ST'),
+('Freelance', 'FR'),
+('Contrat a Temps Partiel', 'CTP'),
+('Contrat Interimaire', 'CI'),
+('Contrat dAlternance', 'ALT');
+
+

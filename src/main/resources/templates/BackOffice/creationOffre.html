@@ -1,9 +1,12 @@
 <div class="card" th:fragment="content">
     <div class="card-body">
-        <h4 class="card-title">Creer offre pour le departement <span style="color: rgb(9, 2, 99);" th:text="${besoin.getDepartement().getNomDepartement()}"></span></h4>
+        <h4 class="card-title">
+            Créer offre pour le département 
+            <span style="color: rgb(9, 2, 99);" th:text="${besoin.getDepartement().getNomDepartement()}"></span>
+        </h4>
         <form class="form-sample" action="/creerOffre" method="get">
             <p class="card-description">
-                informations
+                Informations
             </p>
             <div class="row">
                 <div class="col-md-6">
@@ -34,7 +37,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Responsabilite</label>
+                        <label class="col-sm-3 col-form-label">Responsabilité</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" name="responsabilite">
                         </div>
@@ -47,6 +50,20 @@
                         <label class="col-sm-3 col-form-label">Date limite</label>
                         <div class="col-sm-9">
                             <input type="date" class="form-control" placeholder="dd/mm/yyyy" name="dateLimite">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Type de Contrat</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="typeContrat" required>
+                                <option value="">Sélectionnez un type de contrat</option>
+                                <option th:each="type : ${listeContrat}" 
+                                        th:value="${type.idType}" 
+                                        th:text="${type.nom}">
+                                </option>
+                            </select>
                         </div>
                     </div>
                 </div>

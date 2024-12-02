@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.rh.controller.BaseController;
 import com.rh.model.BackOffice.BesoinRecrutement;
 import com.rh.model.BackOffice.Candidature;
+import com.rh.model.BackOffice.TypeContrat;
 import com.rh.repository.BesoinRecrutementRespository;
+import com.rh.repository.TypeContratRepository;
 import com.rh.service.BackOffice.CandidatureService;
 import com.rh.service.BackOffice.EvaluationService;
 
@@ -24,6 +26,9 @@ public class HomeController extends BaseController {
     @Autowired
     private BesoinRecrutementRespository besoinRecrutementRespository;
 
+    @Autowired
+    private TypeContratRepository typeContratRepository;
+
     public HomeController(CandidatureService cs, EvaluationService es) {
         this.candidatureService = cs;
         this.evaluationService = es;
@@ -31,8 +36,10 @@ public class HomeController extends BaseController {
 
     @GetMapping("/creationOffre")
     public String index(@RequestParam("idBesoinRecrutement") int idBesoin, Model model) {
+        List<TypeContrat> listeContrat = this.typeContratRepository.findAll();
         model.addAttribute("pageContent", "Backoffice/creationOffre");
         model.addAttribute("besoin", this.besoinRecrutementRespository.findById(idBesoin).get());
+        model.addAttribute("listeContrat", listeContrat);
         return "layout";
     }
 

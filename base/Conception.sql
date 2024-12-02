@@ -55,6 +55,7 @@ CREATE TABLE offre_emploi(
    UNIQUE(id_besoin_recrutement),
    FOREIGN KEY(id_besoin_recrutement) REFERENCES besoin_recrutement(id_besoin_recrutement)
 );
+alter table offre_emploi add column id_type_contrat INT REFERENCES type_contrat(id_type);
 
 CREATE TABLE cv(
    id_cv INT AUTO_INCREMENT,
@@ -71,6 +72,18 @@ CREATE TABLE cv(
    FOREIGN KEY(id_candidat) REFERENCES Candidat(id_candidat),
    FOREIGN KEY(id_diplome) REFERENCES diplome(id_diplome)
 );
+ALTER TABLE cv 
+ADD COLUMN objectifs_professionnels TEXT, -- Objectifs et ambitions professionnelles
+ADD COLUMN competences_cles TEXT, -- Compétences clés directement liées au poste
+ADD COLUMN projets_realises TEXT, -- Description des projets réalisés
+ADD COLUMN hobbies_interessants VARCHAR(255), -- Hobbies pertinents pour le poste (exemple : "Développement d'applications")
+ADD COLUMN references_professionnelles TEXT, -- Références professionnelles (noms et coordonnées)
+ADD COLUMN disponibilite ENUM('Immédiate', '1 mois', '3 mois', 'Non disponible') DEFAULT 'Immédiate', -- Disponibilité pour le poste
+ADD COLUMN formations_complementaires TEXT, -- Formations ou cours supplémentaires suivis
+ADD COLUMN distinction_reconnaissances TEXT, -- Récompenses ou distinctions reçues
+ADD COLUMN realisations TEXT, -- Réalisations majeures au cours de la carrière
+ADD COLUMN permis_conduire ENUM('Oui', 'Non') DEFAULT 'Non'; -- Indique si le candidat possède un permis de conduire
+
 
 CREATE TABLE statut_candidature(
     id_statut INT NOT NULL,

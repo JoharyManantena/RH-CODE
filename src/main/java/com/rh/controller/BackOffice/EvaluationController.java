@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,13 +15,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rh.model.BackOffice.BesoinRecrutement;
 import com.rh.model.BackOffice.Candidat;
 import com.rh.model.BackOffice.Candidature;
-import com.rh.model.BackOffice.Cv;
 import com.rh.model.BackOffice.Evaluation;
 import com.rh.model.BackOffice.Notification;
 import com.rh.model.BackOffice.OffreEmploi;
+import com.rh.model.BackOffice.Personnel;
 import com.rh.model.BackOffice.StatutCandidature;
 import com.rh.model.BackOffice.StatutNotification;
 import com.rh.repository.BesoinRecrutementRespository;
+import com.rh.repository.DiplomeRepository;
+import com.rh.repository.PersonnelRepository;
 import com.rh.repository.StatutCandidatureRepository;
 import com.rh.service.BackOffice.CandidatureService;
 import com.rh.service.BackOffice.EvaluationService;
@@ -39,6 +39,11 @@ public class EvaluationController {
     private final OffreEmploiService offreEmploiService;
     private final BesoinRecrutementRespository besoinRecrutementRespository;
     private final NotificationService notificationService;
+
+    @Autowired
+    private PersonnelRepository personnelRepository;
+    @Autowired
+    private DiplomeRepository diplomeRepository;
 
     public EvaluationController(EvaluationService es, CandidatureService cs, StatutCandidatureRepository scr,
             OffreEmploiService oes, BesoinRecrutementRespository brr, NotificationService ns) {
@@ -143,6 +148,25 @@ public class EvaluationController {
             }
         }
 
+
+        // Enregistrer le candidat
+
+        // creer l'objet personnel:
+        Personnel personnel = new Personnel();
+        personnel.setNom(candidature.getCv().getNom());
+        personnel.setPrenom(candidature.getCv().getPrenom());
+        personnel.setDateNaissance(candidature.getCv().getDateNaissance());
+        personnel.setAdresse(candidature.getCv().getAdresse());
+        personnel.setDateEmbauche(LocalDate.now());
+        personnel.setSalaire(null);
+        personnel.setDepartement(candidature.getOffreEmploi().getBesoinRecrutement().getDepartement());
+        personnel.setCategorie(null);
+        personnel.setPoste(null);
+        personnel.setCv(candidature.getCv());
+
+        this.personnelRepository.save(personnel);
+        
+
         return "redirect:/candidatures";
     }
 
@@ -190,19 +214,19 @@ public class EvaluationController {
         }
     }
 
-    @PostMapping("/auto")
-    public ResponseEntity<String> evaluerAutomatiquement(@RequestParam int idCv, @RequestParam int idBesoin) {
-        Cv cv = cvService.getById(idCv);
-        BesoinRecrutement besoin = besoinService.getById(idBesoin);
+    // @PostMapping("/auto")
+    // public ResponseEntity<String> evaluerAutomatiquement(@RequestParam int idCv, @RequestParam int idBesoin) {
+    //     Cv cv = cvService.getById(idCv);
+    //     BesoinRecrutement besoin = besoinService.getById(idBesoin);
 
-        if (cv == null || besoin == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("CV ou Besoin introuvable");
-        }
+    //     if (cv == null || besoin == null) {
+    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("CV ou Besoin introuvable");
+    //     }
 
-        Evaluation evaluation = evaluationService.evaluerAutomatiquement(cv, besoin);
+    //     Evaluation evaluation = evaluationService.evaluerAutomatiquement(cv, besoin);
 
-        return ResponseEntity
-                .ok("Évaluation automatique réussie avec une note totale de : " + evaluation.getNoteTotale());
-    }
+    //     return ResponseEntity
+    //             .ok("Évaluation automatique réussie avec une note totale de : " + evaluation.getNoteTotale());
+    // }
 
 }

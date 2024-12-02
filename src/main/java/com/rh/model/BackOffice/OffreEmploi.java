@@ -49,6 +49,11 @@ public class OffreEmploi {
     @Column(name = "disponible")
     private boolean disponible;
 
+
+    @ManyToOne
+    @JoinColumn(name = "id_type_contrat")
+    private TypeContrat typeContrat;
+
     // Getters et Setters
 
     public Integer getIdOffreEmploi() {
@@ -123,13 +128,22 @@ public class OffreEmploi {
         return disponible;
     }
 
+    public void setTypeContrat(TypeContrat typeContrat) {
+        this.typeContrat = typeContrat;
+    }
+
+    public TypeContrat getTypeContrat() {
+        return typeContrat;
+    }
+
     public OffreEmploi(String titre, String description, LocalDate dateOffre, String responsabilite,
-            LocalDate dateLimite) {
+            LocalDate dateLimite, TypeContrat typeContrat) {
         setTitrePoste(titre);
         setDescriptionPoste(description);
         setDatePublication(dateOffre);
         setResponsabilitePrincipale(responsabilite);
         setDateLimiteCandidature(dateLimite);
+        setTypeContrat(typeContrat);
     }
 
     public OffreEmploi() {
