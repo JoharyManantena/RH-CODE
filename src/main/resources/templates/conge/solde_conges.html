@@ -1,0 +1,18 @@
+<!-- solde_conges.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Solde des Congés</title>
+</head>
+<body>
+    <h1>Solde des Congés de <span th:text="${personnel.prenom + ' ' + personnel.nom}"></span></h1>
+
+    <p><strong>Droit Congés  :</strong> <span th:text="${droit}"></span> jours</p>
+    <p><strong>Congés Pris :</strong> <span th:text="${congesPris}"></span> jours</p>
+    <p><strong>Congés Restants :</strong> <span th:text="${congesRestants}"></span> jours</p>
+
+
+    <!-- <h4> <span th:text="${cumulAffiche}"> mois</span></h4> -->
+
+</body>
+</html>
