@@ -1,190 +1,71 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="content">
 
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  
-    <title>Dashboard - IT-Corporation</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-  
-    <!-- Favicons -->
-    <link th:href="@{/conge/assets/img/favicon.png}" rel="icon">
-    <link th:href="@{/conge/assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
-  
-    <!-- Google Fonts -->
-    <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-  
-    <!-- Vendor CSS Files -->
-    <link th:href="@{/conge/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/conge/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
-    <link th:href="@{/conge/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
-    <link th:href="@{/conge/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
-    <link th:href="@{/conge/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
-    <link th:href="@{/conge/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
-    <link th:href="@{/conge/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
-  
-    <!-- Template Main CSS File -->
-    <link th:href="@{/conge/assets/css/style.css}" rel="stylesheet">
-  </head>
+  <div class="pagetitle">
+    <h1>Une nouvelle demande de congé</h1>
+  </div><!-- End Page Title -->
 
-<body>
+  <section class="section dashboard">
+    <div class="row">
+      <div class="col-lg-8">
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img th:src="@{/conge/assets/img/logo.png}" alt="">
-        <span class="d-none d-lg-block">IT-Corporation</span>
-      </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div>
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-        <li class="nav-item dropdown pe-3">
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img th:src="@{/conge/assets/img/profile-img.jpg}" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </header>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title text-center color_black_0">Nouvelle demande</h5>
 
-  <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
+            <form action="/demandes" method="post" th:object="${demandeConge}">
 
-    <ul class="sidebar-nav" id="sidebar-nav">
-
-      <li class="nav-item">
-        <a class="nav-link " href="index.html">
-          <i class="bi bi-grid"></i>
-          <span>Accueil</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-
-      <li class="nav-item" >
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Congé</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <li>
-                <a th:href="@{demandes/form}">
-                  <i class="bi bi-circle"></i><span>Demande congé</span>
-                </a>
-              </li>
-              <li>
-                <a th:href="@{/}">
-                  <i class="bi bi-circle"></i><span>Suivi congé & historique [Admin]</span>
-                </a>
-              </li>
-              <li>
-                <a th:href="@{/emp}">
-                  <i class="bi bi-circle"></i><span>Suivi congé & historique [Personnel]</span>
-                </a>
-              </li>
-
-        </ul>
-      </li><!-- End Conge Nav -->
-
-
-    </ul>
-
-  </aside><!-- End Sidebar-->
-
-  
-
-  <main id="main" class="main">
-
-    <div class="pagetitle">
-      <h1>Une nouvelle demande de congé</h1>
-    </div><!-- End Page Title -->
-
-    <section class="section dashboard">
-      <div class="row">
-        <div class="col-lg-8">
-
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title text-center color_black_0">Nouvelle demande</h5>
-    
-              <form action="/demandes" method="post" th:object="${demandeConge}">
-
-                <div class="col-12">
-                  <label for="personnel" class="form-label">Personnel :</label>
-                  <div class="col-sm-12">
-                    <select class="form-select" aria-label="Default select example" th:field="*{personnel.idPersonnel}">
-                      <option th:each="personnel : ${personnels}"
-                              th:value="${personnel.idPersonnel}"
-                              th:text="${personnel.nom + ' ' + personnel.prenom}"></option>
-                    </select>
-                  </div>
+              <div class="col-12">
+                <label for="personnel" class="form-label">Personnel :</label>
+                <div class="col-sm-12">
+                  <select class="form-select" aria-label="Default select example" th:field="*{personnel.idPersonnel}">
+                    <option th:each="personnel : ${personnels}" th:value="${personnel.idPersonnel}"
+                      th:text="${personnel.nom + ' ' + personnel.prenom}"></option>
+                  </select>
                 </div>
+              </div>
 
-                <div class="col-12">
-                  <label for="type" class="form-label">Type de congé :</label>
-                  <div class="col-sm-12">
-                    <select name="type" class="form-select" aria-label="Default select example" th:field="*{typeConge.idTypeConge}">
-                      <option th:each="type : ${typesConges}"
-                      th:value="${type.idTypeConge}"
-                      th:text="${type.nomConge}"></option>
-                    </select>
-                  </div>
+              <div class="col-12">
+                <label for="type" class="form-label">Type de congé :</label>
+                <div class="col-sm-12">
+                  <select name="type" class="form-select" aria-label="Default select example"
+                    th:field="*{typeConge.idTypeConge}">
+                    <option th:each="type : ${typesConges}" th:value="${type.idTypeConge}" th:text="${type.nomConge}">
+                    </option>
+                  </select>
                 </div>
-            
+              </div>
 
-                <div class="col-12">
-                  <label for="debut" class="form-label">Date début :</label>
-                  <input type="date" class="form-control" th:field="*{dateDebut}" id="debut">
-                </div>
 
-                <div class="col-12">
-                  <label for="fin" class="form-label">Date fin :</label>
-                  <input type="date" class="form-control"  th:field="*{dateFin}" id="fin">
-                </div>
-            
+              <div class="col-12">
+                <label for="debut" class="form-label">Date début :</label>
+                <input type="date" class="form-control" th:field="*{dateDebut}" id="debut">
+              </div>
 
-                <div class="col-12">
-                  <label for="duree" class="form-label">Durée</label>
-                  <input type="number" class="form-control" th:field="*{dureeConge}" id="duree">
-                </div>
+              <div class="col-12">
+                <label for="fin" class="form-label">Date fin :</label>
+                <input type="date" class="form-control" th:field="*{dateFin}" id="fin">
+              </div>
 
-                <div style="color: red;" th:if="${errorMessage}" class="error-message">
-                  <p th:text="${errorMessage}"></p>
-                </div>
 
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary">Soumettre</button>
-                </div>
+              <div class="col-12">
+                <label for="duree" class="form-label">Durée</label>
+                <input type="number" class="form-control" th:field="*{dureeConge}" id="duree">
+              </div>
+
+              <div style="color: red;" th:if="${errorMessage}" class="error-message">
+                <p th:text="${errorMessage}"></p>
+              </div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Soumettre</button>
+              </div>
 
 
 
             </form><!-- Vertical Form -->
-            </div>
           </div>
         </div>
       </div>
-    </section>
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>IT-Corporation</span></strong>. All Rights Reserved
     </div>
-    <div class="credits">
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-    </div>
-  </footer><!-- End Footer -->
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <script th:src="@{/conge/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-  <script th:src="@{/conge/assets/js/main.js}"></script>
-
-
-</body>
-
-</html>
+  </section>
+</div>

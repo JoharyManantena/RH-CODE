@@ -40,15 +40,17 @@ public class DemandeCongeController {
         binder.addCustomFormatter(new DateFormatter("yyyy-MM-dd"));
     }
 
-    @GetMapping
+    @GetMapping("/listeDemandeConge")
     public String afficherDemandes(Model model) {
         model.addAttribute("demandes", demandeCongeService.getAllDemandes());
-        return "conge/demandes_list";
+        model.addAttribute("pageContent", "conge/demandes_list");
+        return "home";
     }
     @GetMapping("/emp")
     public String afficherDemandesEmp(Model model) {
         model.addAttribute("demandes", demandeCongeService.getAllDemandes());
-        return "conge/listePourPersonnel";
+        model.addAttribute("pageContent", "conge/listePourPersonnel");
+        return "home";
     }
 
     @PostMapping
@@ -117,13 +119,13 @@ public class DemandeCongeController {
     }
 
 
-
     @GetMapping("/form")
     public String showForm(Model model) {
         model.addAttribute("demandeConge", new DemandeConge());
         model.addAttribute("personnels", personnelRepository.findAll());
         model.addAttribute("typesConges", typeCongeRepository.findAll());
-        return "conge/demande_conge";
+        model.addAttribute("pageContent", "conge/demande_conge");
+        return "home";
     }
 
     @PostMapping("/valider/{id}")
