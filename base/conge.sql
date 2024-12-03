@@ -30,13 +30,13 @@ CREATE TABLE type_conge (
 
 INSERT INTO type_conge (nom_conge)
 VALUES 
-('Congés Payés'),
-('Congés Sans Solde'),
-('Congés Spéciaux'),
-('Congés Maladie'),
-('Congés Parentaux'),
-('Congés Sabbatiques'),
-('Congés Formation');
+('Conges Payes'),
+('Conges Sans Solde'),
+('Conges Speciaux'),
+('Conges Maladie'),
+('Conges Parentaux'),
+('Conges Sabbatiques'),
+('Conges Formation');
 
 
 
