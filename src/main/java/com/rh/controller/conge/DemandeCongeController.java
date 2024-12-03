@@ -43,12 +43,12 @@ public class DemandeCongeController {
     @GetMapping
     public String afficherDemandes(Model model) {
         model.addAttribute("demandes", demandeCongeService.getAllDemandes());
-        return "demandes_list";
+        return "conge/demandes_list";
     }
     @GetMapping("/emp")
     public String afficherDemandesEmp(Model model) {
         model.addAttribute("demandes", demandeCongeService.getAllDemandes());
-        return "listePourPersonnel";
+        return "conge/listePourPersonnel";
     }
 
     @PostMapping
@@ -62,28 +62,28 @@ public class DemandeCongeController {
             model.addAttribute("errorMessage", "Vous n'avez plus de congés restants ou vous êtes en solde négatif. Impossible de soumettre une nouvelle demande de congé.");
             model.addAttribute("personnels", personnelRepository.findAll());
             model.addAttribute("typesConges", typeCongeRepository.findAll());
-            return "demande_conge";
+            return "conge/demande_conge";
         }
 
         if (personnel.getCumulMois() < 12) {
             model.addAttribute("errorMessage", "Vous ne pouvez pas prendre de congé, votre cumul de mois est insuffisant.");
             model.addAttribute("personnels", personnelRepository.findAll());
             model.addAttribute("typesConges", typeCongeRepository.findAll());
-            return "demande_conge";
+            return "conge/demande_conge";
         }
 
         if (demandeConge.getDateDebut().after(demandeConge.getDateFin())) {
             model.addAttribute("errorMessage", "La date de début doit être antérieure à la date de fin.");
             model.addAttribute("personnels", personnelRepository.findAll());
             model.addAttribute("typesConges", typeCongeRepository.findAll());
-            return "demande_conge";
+            return "conge/demande_conge";
         }
 
         if (demandeConge.getPersonnel() == null || demandeConge.getTypeConge() == null) {
             model.addAttribute("errorMessage", "Le personnel et le type de congé sont obligatoires.");
             model.addAttribute("personnels", personnelRepository.findAll());
             model.addAttribute("typesConges", typeCongeRepository.findAll());
-            return "demande_conge";
+            return "conge/demande_conge";
         }
 
         demandeCongeService.saveDemande(demandeConge);
@@ -113,7 +113,7 @@ public class DemandeCongeController {
 
         model.addAttribute("cumulAffiche", cumulAffiche);
 
-        return "solde_conges";
+        return "conge/solde_conges";
     }
 
 
@@ -123,7 +123,7 @@ public class DemandeCongeController {
         model.addAttribute("demandeConge", new DemandeConge());
         model.addAttribute("personnels", personnelRepository.findAll());
         model.addAttribute("typesConges", typeCongeRepository.findAll());
-        return "demande_conge";
+        return "conge/demande_conge";
     }
 
     @PostMapping("/valider/{id}")

@@ -23,7 +23,7 @@ public class HeuresSupController {
     @GetMapping("/create")
     public String showForm(Model model) {
         model.addAttribute("heuresSup", new HeuresSup());
-        return "heuresSupForm";
+        return "conge/heuresSupForm";
     }
 
     @PostMapping("/create")
@@ -40,6 +40,6 @@ public class HeuresSupController {
     public String listHeuresSup(Model model) {
         List<HeuresSup> heuresSups = heuresSupService.getAllHeuresSup();
         model.addAttribute("heuresSups", heuresSups);
-        return "heuresSupList";
+        return "conge/heuresSupList";
     }
 }

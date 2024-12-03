@@ -8,7 +8,7 @@ public class DefaultController {
 
     @GetMapping("/")
     public String home() {
-        return "home";
+        return "conge/home";
     }
 
 
