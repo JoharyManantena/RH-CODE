@@ -28,7 +28,7 @@ public class AuthController extends BaseController {
         } catch (Exception ex) {
             System.out.println("erreur " + ex);
             redirectAttributes.addAttribute("erreurLogin", ex.getMessage());
-            return "redirect:/loginAdmin";
+            return "redirect:/";
         }
 
         return "redirect:/listeCandidature";
