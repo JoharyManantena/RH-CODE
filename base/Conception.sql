@@ -78,10 +78,15 @@ CREATE TABLE contrat_employe (
    id_personnel INT NOT NULL,
    id_type INT NOT NULL,
    etat INT NOT NULL,
+   jourPreavis INT NOT NULL,
+   salaire DECIMAL(15,2),
+
    PRIMARY KEY(id_contrat_employe),
    FOREIGN KEY(id_personnel) REFERENCES personnel(id_personnel),
    FOREIGN KEY(id_type) REFERENCES type_contrat(id_type)
 );
+ALTER TABLE contrat_employe
+ADD COLUMN  MoisPreavis INT NOT NULL;
 
 CREATE TABLE rupture (
    id_rupture INT AUTO_INCREMENT,
@@ -105,6 +110,11 @@ CREATE TABLE rupture_contrat (
    FOREIGN KEY(id_contrat_employe) REFERENCES contrat_employe(id_contrat_employe),
    FOREIGN KEY(id_rupture) REFERENCES rupture(id_rupture)
 );
+ALTER TABLE rupture_contrat
+ADD COLUMN date_preavis DATE;
+
+
+
 
 CREATE TABLE document_fin (
    id_document INT AUTO_INCREMENT,

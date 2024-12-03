@@ -32,6 +32,10 @@ public class RuptureContrat {
     @Column(name = "date_entretient")
     private LocalDate dateEntretient;
 
+    @Column(name = "date_preavis")
+    private LocalDate datePreavis;
+
+
     @Lob
     @Column(name = "fichier", columnDefinition = "LONGBLOB")
     private byte[] fichier;
@@ -62,6 +66,14 @@ public class RuptureContrat {
     public void setPersonnel(Personnel personnel) {
         this.personnel = personnel;
     }
+    public LocalDate getDatePreavis() {
+        return datePreavis;
+    }
+
+    public void setDatePreavis(LocalDate datePreavis) {
+        this.datePreavis = datePreavis;
+    }
+
 
     // Getters et Setters
     public Integer getIdRuptureContrat() {

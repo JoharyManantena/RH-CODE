@@ -16,5 +16,5 @@ public interface RuptureContratRepository extends JpaRepository<RuptureContrat, 
     RuptureContrat findByPersonnel_IdPersonnel(Integer idPersonnel);
 
     // Trouver les ruptures de contrat par état, triées par ID
-    List<RuptureContrat> findByEtatOrderByIdRuptureContratAsc(Integer etat);
+    List<RuptureContrat> findByEtatOrderByIdRuptureContratDesc(Integer etat);
 }

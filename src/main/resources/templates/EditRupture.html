@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valider Rupture Contrat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .info, .form {
+            width: 48%;
+        }
+
+        .info h2, .info h3 {
+            margin: 10px 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label, input, select, button {
+            margin: 10px 0;
+        }
+
+        .default-today {
+            width: 100%;
+        }
+
+        .form button {
+            align-self: flex-start;
+            width: 200px;
+            padding: 10px;
+        }
+
+        /* Style pour le tableau des indemnités */
+        #indemnitesTable {
+            display: none;
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        #indemnitesTable th, #indemnitesTable td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        #indemnitesTable th {
+            background-color: #f4f4f4;
+        }
+
+        #indemnitesTable td {
+            background-color: #fafafa;
+        }
+
+        .centered-table {
+            text-align: center;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Récupérer les éléments contenant les dates après rendu par Thymeleaf
+            const dateNotificationElement = document.querySelector("#dateNotification");
+            const datePreavisElement = document.querySelector("#datePreavis");
+            const moisPreavisElement = document.querySelector("#Preavis");
+
+            if (!dateNotificationElement || !datePreavisElement) {
+                console.error("Les éléments de date ne sont pas trouvés dans le DOM.");
+                return; // Arrêter l'exécution si les éléments n'existent pas
+            }
+
+            // Extraire les valeurs des dates
+            const dateNotificationStr = dateNotificationElement.innerText.trim();
+            const datePreavisStr = datePreavisElement.innerText.trim();
+
+            // Convertir les dates en objets Date
+            const dateNotification = new Date(dateNotificationStr);
+            const datePreavis = new Date(datePreavisStr);
+
+            // Vérifier si les dates sont valides
+            if (isNaN(dateNotification) || isNaN(datePreavis)) {
+                console.error("Les dates sont invalides.");
+                return; // Arrêter l'exécution si les dates sont invalides
+            }
+
+            // Calcul de la différence en jours
+            const diffTime = Math.abs(datePreavis - dateNotification);  // Différence en millisecondes
+            const diffDays = diffTime / (1000 * 60 * 60 * 24); // Conversion en jours
+
+            // Récupérer la valeur de moisPreavis dans le span
+            const moisPreavis = parseInt(moisPreavisElement.innerText, 10);
+
+            // Calcul du nombre de jours de préavis (moisPreavis * 30)
+            const joursPreavis = moisPreavis * 30;
+
+            // Comparer la différence en jours avec les jours de préavis
+            let preavisStatus = 0; // 0 signifie "Non Respect du préavis" par défaut
+            if (diffDays >= joursPreavis) {
+                preavisStatus = 1; // 1 signifie "Respect du préavis"
+            }
+
+            // Mettre à jour le champ preavisStatus avec le résultat
+            document.getElementById("preavisStatus").value = preavisStatus;
+        });
+
+        // Event listener pour afficher les indemnités si le préavis est respecté
+        document.addEventListener("DOMContentLoaded", () => {
+            const preavisStatus = document.getElementById("preavisStatus").value;
+
+            // Si le préavis est respecté, afficher le bouton indemnité
+            if (preavisStatus == 1) {
+                // Afficher le bouton pour déclencher l'affichage du tableau des indemnités
+                const indemnitesButton = document.createElement("button");
+                indemnitesButton.textContent = "Afficher Indemnités";
+                document.querySelector(".form").appendChild(indemnitesButton);
+
+                // Ajouter l'événement au bouton pour afficher le tableau
+                indemnitesButton.addEventListener("click", () => {
+                    // Afficher le tableau des indemnités
+                    document.getElementById("indemnitesTable").style.display = "table";
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Valider Rupture Contrat</h1>
+
+    <div class="container">
+        <!-- Informations à gauche -->
+        <div class="info">
+            <h2>Type de Rupture: <span th:text="${ruptureContrat.rupture.types}">Type de rupture</span></h2>
+
+            <h3>Personnel: <span th:text="${ruptureContrat.personnel.nom}">Nom</span> <span th:text="${ruptureContrat.personnel.prenom}">Prénom</span></h3>
+
+            <h3>Date Naissance: <span th:text="${ruptureContrat.personnel.dateNaissance}">Naissance</span></h3>
+
+            <h3>Date d'Embauche: <span th:text="${ruptureContrat.personnel.dateEmbauche}">Embauche</span></h3>
+
+            <h3>Adresse: <span th:text="${ruptureContrat.personnel.adresse}">Adresse</span></h3>
+
+            <h3>Salaire: <span th:text="${ruptureContrat.personnel.salaire}">Salaire</span></h3>
+
+            <h3>Departement: <span th:text="${ruptureContrat.personnel.departement.nomDepartement}">Departement</span></h3>
+
+            <h3>Categorie: <span th:text="${ruptureContrat.personnel.categorie.nomCategorie}">Categorie</span></h3>
+
+            <h3>Date de Debut Contrat: <span th:text="${ruptureContrat.ContratEmploye.dateDebut}">Debut</span></h3>
+
+            <h3>Date de Fin Contrat: <span th:text="${ruptureContrat.ContratEmploye.dateFin}">Fin</span></h3>
+
+            <h3>Type de Contrat: <span th:text="${ruptureContrat.ContratEmploye.TypeContrat.nom}">TypeContrat</span></h3>
+
+            <h3>Contrat de Preavis: <span id="Preavis" th:text="${ruptureContrat.ContratEmploye.moisPreavis}">Preavis</span> mois</h3>
+
+            <h3>Date de Notification RH: <span id="dateNotification" th:text="${ruptureContrat.dateNotification}">DateNotification</span></h3>
+            
+            <h3>Date de demande de rupture: <span id="datePreavis" th:text="${ruptureContrat.datePreavis}">DatePreavis</span></h3>
+
+        </div>
+
+        <!-- Formulaire à droite -->
+        <div class="form">
+            <form action="/update" method="post">
+                <!-- Respect du préavis -->
+                <label for="preavisStatus">Respect du préavis:</label>
+                <input type="text" id="preavisStatus" name="preavisStatus" readonly>
+                <br>
+
+                <!-- CSRF token -->
+                <input type="hidden" name="_csrf" value="${_csrf.token}">
+
+                <!-- Champ caché pour l'identifiant -->
+                <input type="hidden" name="idRuptureContrat" value="${ruptureContrat.idRuptureContrat}">
+
+                <!-- Date de Notification -->
+                <label for="dateNotification">Date d'Envoi:</label>
+                <input type="date" id="dateNotification" name="dateNotification" value="${ruptureContrat.dateNotification}" class="default-today" required>
+                <br>
+
+                <!-- Section conditionnelle -->
+                <div th:if="${ruptureContrat.rupture.types != 'Demission'}">
+                    <!-- Date d'Homologation -->
+                    <label for="dateHomologation">Date d'Homologation de contrat:</label>
+                    <input type="date" id="dateHomologation" name="dateHomologation" value="${ruptureContrat.dateHomologation}" class="default-today">
+                    <br>
+
+                    <!-- Date d'Entretien -->
+                    <label for="dateEntretient">Date d'Entretien:</label>
+                    <input type="date" id="dateEntretient" name="dateEntretient" value="${ruptureContrat.dateEntretient}" class="default-today">
+                    <br>
+                </div>
+
+                 <!-- Indemnités -->
+                 <label for="indemnites">Indemnités:</label>
+ 
+                 <!-- Table des indemnités -->
+                 <table id="indemnitesTable" class="centered-table">
+                     <thead>
+                         <tr>
+                             <th>Libellé</th>
+                             <th>Montant (€)</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr>
+                             <td>Salaire brut pour le mois travaillé (préavis)</td>
+                             <td>2 000 €</td>
+                         </tr>
+                         <tr>
+                             <td>Total Indemnité</td>
+                             <td>2 000 €</td>
+                         </tr>
+                     </tbody>
+                 </table>
+
+                <!-- État -->
+                <label for="etat">État:</label>
+                <select id="etat" name="etat" required>
+                    <option value="1" th:selected="${ruptureContrat.etat == 1}">Validé</option>
+                    <option value="2" th:selected="${ruptureContrat.etat == 2}">Rejeté</option>
+                </select>
+                <br>
+
+                <!-- Bouton de soumission -->
+                <button type="submit">Mettre à jour</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

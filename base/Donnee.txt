@@ -36,12 +36,28 @@ INSERT INTO personnel (nom, prenom, date_naissance, adresse, date_embauche, sala
 ('Durand', 'Claude', '1985-04-12', '789 boulevard Exemple', '2015-01-01', 3500.00, 1, 2, 'Développeur', 1),
 ('Lemoine', 'Alice', '1992-03-25', '101 rue Test', '2018-07-15', 4500.00, 2, 1, 'Responsable RH', 2);
 
-INSERT INTO contrat_employe (date_debut, date_fin, id_personnel, id_type, etat) VALUES
-('2015-01-01', '2020-01-01', 1, 1, 1),
-('2018-07-15', '2023-07-15', 2, 2, 0);
+INSERT INTO contrat_employe (date_debut, date_fin, id_personnel, id_type, etat, MoisPreavis) VALUES
+('2015-01-01', '2020-01-01', 1, 1, 0, 1),
+('2018-07-15', '2023-07-15', 2, 2, 0, 2);
 
 INSERT INTO rupture (type_rupture) VALUES
-('Démission'),
+('Demission'),
 ('Licenciement'),
-('Retrait');
+('Retrait'),
+(Accord);
+
+UPDATE rupture
+type_rupture = 'Demission'
+WHERE id_rupture = 1;
+
+
+ajoute un tableau fiche de paye :  
+avec h1 paye :  
+libellé                                                     Montant
+salaire brut                                            ${ruptureContrat.personnel.salaire}
+Indemnité compensatoirede préavis     -(${ruptureContrat.personnel.salaire}*${ruptureContrat.ContratEmploye.moisPreavis})
+et modifie :                 <!-- Indemnités -->
+                <label for="indemnites">Indemnités:</label>
+                <input type="number" id="indemnites" name="indemnites" step="0.01" value="${ruptureContrat.indemnites}">
+                <br>
 

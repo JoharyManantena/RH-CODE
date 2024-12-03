@@ -1,5 +1,7 @@
 package com.rh.service.BackOffice;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.rh.model.BackOffice.Personnel;
@@ -15,5 +17,9 @@ public class PersonnelService {
 
     public Personnel getPersonnelById(int id){
         return this.personnelRepository.findById(id).orElse(null);
+    }
+
+    public List<Personnel> getAll(){ 
+    return this.personnelRepository.findAll();
     }
 }

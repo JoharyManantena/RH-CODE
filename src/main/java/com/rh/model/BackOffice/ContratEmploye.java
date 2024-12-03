@@ -1,8 +1,16 @@
 package com.rh.model.BackOffice;
 
 
-import jakarta.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "contrat_employe")
@@ -14,13 +22,17 @@ public class ContratEmploye {
     private Integer idContratEmploye;
 
     @Column(name = "date_debut")
-    private Date dateDebut;
+    private LocalDate dateDebut;
 
     @Column(name = "date_fin")
-    private Date dateFin;
+    private LocalDate dateFin;
 
     @Column(name = "etat")
-    private Date Etat;
+    private Integer Etat;
+
+    @Column(name = "mois_preavis", nullable = false) // Respectez la casse exacte de la colonne
+    private Integer MoisPreavis;
+
 
     @ManyToOne
     @JoinColumn(name = "id_personnel", nullable = false)
@@ -31,7 +43,16 @@ public class ContratEmploye {
     private TypeContrat typeContrat;
 
 
+
     // Getters et Setters
+
+    public Integer getMoisPreavis() {
+        return MoisPreavis;
+    }
+
+    public void setMoisPreavis(Integer moisPreavi) {
+        MoisPreavis = moisPreavi;
+    }
     public Integer getIdContratEmploye() {
         return idContratEmploye;
     }
@@ -40,19 +61,19 @@ public class ContratEmploye {
         this.idContratEmploye = idContratEmploye;
     }
 
-    public Date getDateDebut() {
+    public LocalDate getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(Date dateDebut) {
+    public void setDateDebut(LocalDate dateDebut) {
         this.dateDebut = dateDebut;
     }
 
-    public Date getDateFin() {
+    public LocalDate getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(Date dateFin) {
+    public void setDateFin(LocalDate dateFin) {
         this.dateFin = dateFin;
     }
 

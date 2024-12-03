@@ -74,3 +74,20 @@ front:
 -Rh: formulaire Rupture Contrat
 -Admin: notificationRuptureRh(etat = 0), formulaire Update Rupture Contrat(avec bouttons,VoirFicheDePaye, VoirCongée, VoirContrat ).
 -Client: notificationRuptureAdmin(etat = 1).
+
+*Contrat :
++ mois preavis,
+
+*Personnel:
++ date d'embauche, 
+
+Ancienté:
+date d'embauche - date du jour,
+
+Indemnité:
+type rupture:
+demission: -general(corespond avec le preavis): indemnté de congée non payé = indemnité.
+demision: -immediat(ne correspond pas avec le preavis): indemnité = indemnité compensatoire: preavis * salaire brute.
+
+licenciement: -general(corespond avec le preavis): indemnité = indemnité licenciement: Ancienté < 1an: 1/4 salaire brute, Ancienté> 1an: 1/4 salaire brute + 1/3 salaireBrute * ancienté - 1an.
+-Immediat(ne correspond pas avec le preavis): indemnité = indemnité compensatoire: indemnité licencement + indemnité congés payé.

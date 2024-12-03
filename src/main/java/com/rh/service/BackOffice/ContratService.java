@@ -16,4 +16,8 @@ public class ContratService {
     public ContratEmploye getById(int id){
         return this.contratEmployeRepository.findById(id).orElse(null);
     }
+
+    public ContratEmploye getByIdPersonnel(int id){
+        return this.contratEmployeRepository.findByPersonnel_IdPersonnel(id);
+    }
 }

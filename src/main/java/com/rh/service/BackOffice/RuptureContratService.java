@@ -4,9 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.rh.model.BackOffice.ContratEmploye;
-import com.rh.model.BackOffice.Personnel;
-import com.rh.model.BackOffice.Rupture;
 import com.rh.model.BackOffice.RuptureContrat;
 import com.rh.repository.RuptureContratRepository;
 
@@ -29,10 +26,14 @@ public class RuptureContratService {
         return this.ruptureContratRepository.findByPersonnel_IdPersonnel(idPersonnel);
     }
 
+    public List<RuptureContrat> getAll(){
+        return this.ruptureContratRepository.findAll();
+    }
+
     
     // Récupérer toutes les ruptures de contrat par état
     public List<RuptureContrat> getIdRuptureContratEtat(int etat) {
-        return this.ruptureContratRepository.findByEtatOrderByIdRuptureContratAsc(etat);
+        return this.ruptureContratRepository.findByEtatOrderByIdRuptureContratDesc(etat);
     }
 
     // Enregistrer une nouvelle rupture de contrat

@@ -7,4 +7,5 @@ import com.rh.model.BackOffice.ContratEmploye;
 
 public interface ContratEmployeRepository extends JpaRepository <ContratEmploye, Integer> {
     
+    ContratEmploye findByPersonnel_IdPersonnel(Integer idPersonnel);
 }
