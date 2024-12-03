@@ -1,10 +1,10 @@
-package com.rh.service;
+package com.rh.service.conge;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.rh.model.HeuresSup;
-import com.rh.repository.HeuresSupRepository;
+import com.rh.model.conge.HeuresSup;
+import com.rh.repository.conge.HeuresSupRepository;
 
 import java.util.List;
 import java.util.Optional;

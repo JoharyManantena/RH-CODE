@@ -1,4 +1,4 @@
-package com.rh.service;
+package com.rh.service.conge;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.rh.model.DemandeConge;
-import com.rh.repository.DemandeCongeRepository;
+import com.rh.model.conge.DemandeConge;
+import com.rh.repository.conge.DemandeCongeRepository;
 
 @Service
 public class DemandeCongeService {

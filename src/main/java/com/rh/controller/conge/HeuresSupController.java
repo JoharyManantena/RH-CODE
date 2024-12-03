@@ -1,15 +1,17 @@
-package com.rh.controller;
+package com.rh.controller.conge;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.rh.model.HeuresSup;
-import com.rh.service.HeuresSupService;
-
-import java.util.List;
-import java.util.Optional;
+import com.rh.model.conge.HeuresSup;
+import com.rh.service.conge.HeuresSupService;
 
 @Controller
 @RequestMapping("/heures-sup")

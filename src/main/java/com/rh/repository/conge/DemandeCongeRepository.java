@@ -1,4 +1,4 @@
-package  com.rh.repository;
+package  com.rh.repository.conge;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.rh.model.DemandeConge;
+import com.rh.model.conge.DemandeConge;
 
 public interface DemandeCongeRepository extends JpaRepository<DemandeConge, Integer> {
     List<DemandeConge> findByPersonnelIdPersonnel(Integer idPersonnel);

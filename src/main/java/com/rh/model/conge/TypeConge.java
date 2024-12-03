@@ -1,4 +1,4 @@
-package com.rh.model;
+package com.rh.model.conge;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

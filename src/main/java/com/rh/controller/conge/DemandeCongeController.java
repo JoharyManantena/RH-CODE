@@ -1,4 +1,4 @@
-package com.rh.controller;
+package com.rh.controller.conge;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.datetime.DateFormatter;
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.rh.model.DemandeConge;
-import com.rh.model.Personnel;
-import com.rh.repository.DemandeCongeRepository;
-import com.rh.repository.PersonnelRepository;
-import com.rh.repository.TypeCongeRepository;
-import com.rh.service.DemandeCongeService;
+import com.rh.model.conge.DemandeConge;
+import com.rh.model.conge.Personnel;
+import com.rh.repository.conge.DemandeCongeRepository;
+import com.rh.repository.conge.PersonnelRepository;
+import com.rh.repository.conge.TypeCongeRepository;
+import com.rh.service.conge.DemandeCongeService;
 
 @Controller 
 @RequestMapping("/demandes")
