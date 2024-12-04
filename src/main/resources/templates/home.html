@@ -28,6 +28,14 @@
   <link th:href="@{/conge/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
   <link th:href="@{/conge/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
 
+  <link rel="stylesheet" th:href="@{/vendors/ti-icons/css/themify-icons.css}">
+  <!-- <link rel="stylesheet" th:href="@{/css/vertical-layout-light/style.css}"> -->
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- endinject -->
+  <link rel="shortcut icon" th:href="@{/images/favicon.png}" />
+
   <!-- Template Main CSS File -->
   <link th:href="@{/conge/assets/css/style.css}" rel="stylesheet">
 </head>
@@ -61,7 +69,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="/">
+        <a class="nav-link " href="/accueil">
           <i class="bi bi-grid"></i>
           <span>Accueil</span>
         </a>
@@ -69,11 +77,29 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Recrutement</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/candidatures">
+              <i class="bi bi-circle"></i><span>Liste candidature</span>
+            </a>
+          </li>
+          <li>
+            <a href="besoinRecrutement">
+              <i class="bi bi-circle"></i><span>Liste besoin</span>
+            </a>
+          </li>
+
+        </ul>
+      </li><!-- End Conge Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-menu-button-wide"></i><span>Congé</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="form">
+            <a href="/form">
               <i class="bi bi-circle"></i><span>Demande congé</span>
             </a>
           </li>
@@ -117,6 +143,187 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Informations sur la Candidature</h2>
+
+      <!-- Contenu dynamique de la modal -->
+      <div id="modalContent"></div>
+
+      <!-- Section des boutons -->
+      <div class="modal-actions">
+        <button id="autoEvaluate" class="button">Évaluer
+          automatiquement</button>
+        <a id="manualEvaluate" href="#">
+          <button class="button button-secondary">Évaluer manuellement</button>
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Style amélioré pour la modal -->
+  <style>
+    /* Fond semi-transparent */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding-top: 60px;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    /* Contenu de la modal */
+    .modal-content {
+      background-color: #fff;
+      margin: 5% auto;
+      padding: 30px;
+      border-radius: 15px;
+      width: 50%;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      position: relative;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10%);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .close {
+      color: #aaa;
+      font-size: 28px;
+      font-weight: bold;
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: black;
+    }
+
+    .modal-content h2 {
+      color: #333;
+      font-size: 26px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-content p {
+      color: #666;
+      font-size: 16px;
+      margin: 10px 0;
+    }
+
+    .modal-content p strong {
+      color: #333;
+    }
+
+    /* Actions de la modal */
+    .modal-actions {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .button {
+      background-color: #007BFF;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 5px;
+      text-decoration: none;
+    }
+
+    .button-secondary {
+      background-color: #6c757d;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    .button-secondary:hover {
+      background-color: #5a6268;
+    }
+  </style>
+  <script>
+    function showModal(row) {
+      // Récupérer les données dynamiques de l'attribut data-* de la ligne
+      var cvNom = row.getAttribute('data-nom');
+      var cvPrenom = row.getAttribute('data-prenom');
+      var cvDateNaissance = row.getAttribute('data-date-naissance');
+      var cvEmail = row.getAttribute('data-email');
+      var nivDiplome = row.getAttribute('data-niveauDiplome');
+      var libDiplome = row.getAttribute('data-libDiplome');
+      var anneeExp = row.getAttribute('data-annee-experience');
+      var statut = row.getAttribute('data-statutCandidature');
+      var competence = row.getAttribute('data-competence');
+      var id = row.getAttribute('data-id');
+      var idStatut = row.getAttribute('data-idStatut');
+
+      // Préparer le contenu dynamique pour la modal
+      var modalContent = `
+    <h3>Candidat : ${cvNom} ${cvPrenom}</h3>
+    <p><strong>Date de naissance : </strong>${cvDateNaissance}</p>
+    <p><strong>Email : </strong>${cvEmail}</p>
+    <p><strong>Diplome : </strong>${nivDiplome} en ${libDiplome}</p>
+    <p><strong>Année d'expérience : </strong>${anneeExp} années</p>
+    <p><strong>Compétences : </strong>${competence}</p>
+    <p><strong>Statut candidature : </strong>${statut}</p>
+`;
+
+      // Injecter le contenu
+      document.getElementById('modalContent').innerHTML = modalContent;
+
+      // Récupérer les boutons
+      const autoEvaluateButton = document.getElementById('autoEvaluate');
+      const manualEvaluateButton = document.getElementById('manualEvaluate');
+
+      // Définir les conditions pour afficher ou masquer les boutons
+      if (idStatut != 4 && idStatut != 3) { // Conditions pour afficher les boutons
+        autoEvaluateButton.style.display = 'inline-block';
+        manualEvaluateButton.style.display = 'inline-block';
+        manualEvaluateButton.href = `/evaluation?idCandidature=${id}`;
+      } else { // Masquer les boutons si conditions non remplies
+        autoEvaluateButton.style.display = 'none';
+        manualEvaluateButton.style.display = 'none';
+      }
+
+      // Afficher la modal
+      document.getElementById('myModal').style.display = "block";
+    }
+
+    function closeModal() {
+      document.getElementById('myModal').style.display = "none";
+    }
+
+
+
+  </script>
+  <script src="../../Js_back_office/evaluation.js"></script>
+  <script src="../../js2/jquery.min.js"></script>
+  <script src="../../js2/bootstrap.bundle.js"></script>
+  <script src="../../nodeModules/sweetalert2/dist/sweetalert2.all.js"></script>
+  <script src="../../Js_back_office/evaluation.js"></script>
 
   <script th:src="@{/conge/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
   <script th:src="@{/conge/assets/js/main.js}"></script>

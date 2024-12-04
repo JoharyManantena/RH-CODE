@@ -31,6 +31,6 @@ public class AuthController extends BaseController {
             return "redirect:/";
         }
 
-        return "redirect:/listeCandidature";
+        return "redirect:/accueil";
     }
 }

@@ -22,7 +22,7 @@ public class HeuresSup {
     private Integer idHeureSup;
 
     @ManyToOne
-    @JoinColumn(name = "id_personnel", referencedColumnName = "idPersonnel")
+    @JoinColumn(name = "id_personnel", referencedColumnName = "id_personnel")
     private Personnel personnel;
 
     @Column(name = "date_heure_sup", nullable = false)

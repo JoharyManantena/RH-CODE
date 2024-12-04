@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.rh.model.conge.DemandeConge;
 import com.rh.model.conge.Personnel;
@@ -20,7 +19,6 @@ import com.rh.repository.conge.TypeCongeRepository;
 import com.rh.service.conge.DemandeCongeService;
 
 @Controller 
-@RequestMapping("/demandes")
 public class DemandeCongeController {
 
     @Autowired

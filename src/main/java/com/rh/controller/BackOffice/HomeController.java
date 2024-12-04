@@ -40,7 +40,7 @@ public class HomeController extends BaseController {
         model.addAttribute("pageContent", "Backoffice/creationOffre");
         model.addAttribute("besoin", this.besoinRecrutementRespository.findById(idBesoin).get());
         model.addAttribute("listeContrat", listeContrat);
-        return "layout";
+        return "home";
     }
 
     @GetMapping("/")
@@ -52,7 +52,7 @@ public class HomeController extends BaseController {
     public String listeCandidature(Model model) {
         model.addAttribute("pageContent", "Backoffice/listeCandidature");
         System.out.println(model.getAttribute("message"));
-        return "layout";
+        return "home";
     }
 
     @GetMapping("/evaluation")
@@ -70,7 +70,7 @@ public class HomeController extends BaseController {
         List<BesoinRecrutement> listeBesoinRecrutement = this.besoinRecrutementRespository.findByFaitFalse();
         model.addAttribute("listeBesoin", listeBesoinRecrutement);
         model.addAttribute("pageContent", "BackOffice/listeBesoinRecrutement");
-        return "layout";
+        return "home";
     }
     
 }

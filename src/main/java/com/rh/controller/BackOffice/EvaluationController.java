@@ -18,13 +18,13 @@ import com.rh.model.BackOffice.Candidature;
 import com.rh.model.BackOffice.Evaluation;
 import com.rh.model.BackOffice.Notification;
 import com.rh.model.BackOffice.OffreEmploi;
-import com.rh.model.BackOffice.Personnel;
 import com.rh.model.BackOffice.StatutCandidature;
 import com.rh.model.BackOffice.StatutNotification;
+import com.rh.model.conge.Personnel;
 import com.rh.repository.BesoinRecrutementRespository;
 import com.rh.repository.DiplomeRepository;
-import com.rh.repository.PersonnelRepository;
 import com.rh.repository.StatutCandidatureRepository;
+import com.rh.repository.conge.PersonnelRepository;
 import com.rh.service.BackOffice.CandidatureService;
 import com.rh.service.BackOffice.EvaluationService;
 import com.rh.service.BackOffice.NotificationService;
@@ -162,7 +162,6 @@ public class EvaluationController {
         personnel.setDepartement(candidature.getOffreEmploi().getBesoinRecrutement().getDepartement());
         personnel.setCategorie(null);
         personnel.setPoste(null);
-        personnel.setCv(candidature.getCv());
 
         this.personnelRepository.save(personnel);
         

@@ -18,7 +18,7 @@ public class DemandeConge {
     private Integer idDemande;
 
     @ManyToOne
-    @JoinColumn(name = "idPersonnel", nullable = false)
+    @JoinColumn(name = "id_personnel", nullable = false)
     private Personnel personnel;
 
     @ManyToOne

@@ -25,7 +25,7 @@ public class CandidatureController {
 
         model.addAttribute("listeCandidature", listeCandidature);
         model.addAttribute("pageContent", "BackOffice/listeCandidature");
-        return "layout";
+        return "home";
     }
 
     @GetMapping("/filtrerCandidatures")
@@ -39,7 +39,7 @@ public class CandidatureController {
         model.addAttribute("listeCandidature", listeCandidature);
         listeCandidature.sort((c1, c2) -> c2.getDatePostulation().compareTo(c1.getDatePostulation()));
         model.addAttribute("pageContent", "BackOffice/listeCandidature");
-        return "layout";
+        return "home";
 
     }
 }
