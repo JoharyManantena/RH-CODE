@@ -105,7 +105,7 @@
     </script>
 </head>
 <body>
-    <h1>Valider Rupture Contrat</h1>
+    <h1>Detail Rupture Contrat</h1>
 
     <div class="container">
         <!-- Informations à gauche -->
@@ -142,54 +142,50 @@
 
         <!-- Formulaire à droite -->
         <div class="form">
-            <form action="/update" method="post" enctype="multipart/form-data">
+            
                 <!-- CSRF token -->
                 <input type="hidden" name="_csrf" value="${_csrf.token}">
 
-                <!-- Respect du préavis -->
                 <h4>Préavis : 
                     <span id="datePreavis" 
                           th:text="${ruptureContrat.getPreavis == 1 ? 'Préavis respecté' : 'Non respect du préavis'}">
                     </span>
                 </h4>
                 
-                <br>
-
+                
+                <!-- État -->
+                <h4>État : 
+                    <span id="etat">
+                        <span th:if="${ruptureContrat.getEtat == 1}" th:text="'Validé'"></span>
+                        <span th:if="${ruptureContrat.getEtat == 2}" th:text="'Refusé'"></span>
+                        <span th:if="${ruptureContrat.getEtat != 1 and ruptureContrat.getEtat != 2}" th:text="'Invalide'"></span>
+                    </span>
+                </h4>
+                
                 
 
-                <!-- Champ caché pour l'identifiant -->
-                <input type="hidden" id="idRuptureContrat" name="idRuptureContrat" th:value="${ruptureContrat.idRuptureContrat}">
-
-
                 <!-- Date de Notification -->
-                <label for="dateEnvoye">Date d'Envoi :</label>
-                <input type="date" id="dateEnvoye" name="dateEnvoye">
+                <label for="dateEnvoye">Date de reception :</label>
+                <input type="date" id="dateEnvoye" name="dateEnvoye"  th:value="${ruptureContrat.envoyeDate}" readonly>
                 <br>
 
                 <!-- Section conditionnelle -->
                 <div th:if="${ruptureContrat.rupture.types == 'Licenciement'}">
                     <!-- Date d'Homologation -->
                     <label for="dateHomologation">Date d'Homologation :</label>
-                    <input type="date" id="dateHomologation" name="dateHomologation">
+                    <input type="date" id="dateHomologation" name="dateHomologation" th:value="${ruptureContrat.dateHomologation}" readonly>
                     <br>
 
                     <!-- Date d'Entretien -->
                     <label for="dateEntretient">Date d'Entretien :</label>
-                    <input type="date" id="dateEntretient" name="dateEntretient">
+                    <input type="date" id="dateEntretient" name="dateEntretient" th:value="${ruptureContrat.dateEntretient}" readonly>
                     <br>
                 </div>
+                
 
 
-                <!-- État -->
-                <label for="etat">État:</label>
-                <select id="etat" name="etat" required>
-                    <option value="1" th:selected="${ruptureContrat.etat == 1}">Validé</option>
-                    <option value="2" th:selected="${ruptureContrat.etat == 2}">Rejeté</option>
-                </select>
-                <br>
+                
 
-                <!-- Bouton de soumission -->
-                <button type="submit">Mettre à jour</button>
                  <!-- Bouton pour afficher/masquer le tableau des indemnités -->
                  <button type="button" id="toggleButton" onclick="toggleIndemnitesTable()">Afficher les indemnités</button>
                 <!-- Table des indemnités -->
@@ -226,7 +222,7 @@
                         
                     </tfoot>
                 </table>
-            </form>
+            
             
         </div>
     </div>

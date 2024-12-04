@@ -20,6 +20,18 @@
             </select>
         </div>
 
+        <!-- Personnel -->
+        <div>
+            <label for="idPersonnel">Pesronnel:</label>
+            <select id="idPersonnel" name="idPersonnel" required>
+                <option value="" disabled selected>-- Sélectionnez un Personnel --</option>
+                <th:block th:each="personnel : ${personnelList}">
+                    <option th:value="${personnel.idPersonnel}" th:text="${personnel.nom}"></option>
+                </th:block>
+
+            </select>
+        </div>  
+
         <!-- Date de Notification -->
         <div>
             <label for="dateNotification">Date d'Ajout :</label>
@@ -32,17 +44,7 @@
             <input type="date" id="datePravis" name="datePravis" required>
         </div>
 
-        <!-- Personnel -->
-        <div>
-            <label for="idPersonnel">Pesronnel:</label>
-            <select id="idPersonnel" name="idPersonnel" required>
-                <option value="" disabled selected>-- Sélectionnez un Personnel --</option>
-                <th:block th:each="personnel : ${personnelList}">
-                    <option th:value="${personnel.idPersonnel}" th:text="${personnel.nom}"></option>
-                </th:block>
-
-            </select>
-        </div>        
+              
 
         <!-- Fichier (Lettre de Rupture) -->
         <div>

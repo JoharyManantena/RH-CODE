@@ -35,6 +35,10 @@ public class RuptureContrat {
     @Column(name = "date_preavis")
     private LocalDate datePreavis;
 
+    @Column(name = "envoye")
+    private LocalDate envoyeDate;
+
+    
 
     @Lob
     @Column(name = "fichier", columnDefinition = "LONGBLOB")
@@ -47,6 +51,9 @@ public class RuptureContrat {
     @Column(name = "etat")
     private Integer etat;
 
+    @Column(name = "preavis")
+    private Integer preavis;
+
     @ManyToOne
     @JoinColumn(name = "id_rupture", nullable = false)
     private Rupture rupture;
@@ -58,6 +65,22 @@ public class RuptureContrat {
     @ManyToOne
     @JoinColumn(name = "id_personnel", nullable = false)
     private Personnel personnel;
+
+    public LocalDate getEnvoyeDate() {
+        return envoyeDate;
+    }
+
+    public void setEnvoyeDate(LocalDate envoyeDate) {
+        this.envoyeDate = envoyeDate;
+    }
+
+    public Integer getPreavis() {
+        return preavis;
+    }
+
+    public void setPreavis(Integer preavis) {
+        this.preavis = preavis;
+    }
 
     public Personnel getPersonnel() {
         return personnel;

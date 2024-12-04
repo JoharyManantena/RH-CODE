@@ -1,5 +1,6 @@
 package com.rh.service.BackOffice;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -42,16 +43,14 @@ public class RuptureContratService {
     }
 
     // Mettre à jour l'état d'une rupture de contrat
-    public RuptureContrat updateRuptureEtat(Integer id, RuptureContrat ruptureContratDetails) {
-        RuptureContrat existingRuptureContrat = ruptureContratRepository.findById(id)
+    public RuptureContrat updateRuptureEtat(Integer id, LocalDate dateEnvoye, LocalDate dateHomologation, LocalDate DateEntretient, Integer etat) {
+        RuptureContrat ruptureContratAncien = ruptureContratRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Rupture contrat not found with id: " + id));
-
-        existingRuptureContrat.setEtat(ruptureContratDetails.getEtat());
-        existingRuptureContrat.setDateEntretient(ruptureContratDetails.getDateEntretient());
-        existingRuptureContrat.setDateHomologation(ruptureContratDetails.getDateHomologation());
-        existingRuptureContrat.setIndemnites(ruptureContratDetails.getIndemnites());
-
-        return ruptureContratRepository.save(existingRuptureContrat);
+                ruptureContratAncien.setEnvoyeDate(dateEnvoye);
+                ruptureContratAncien.setDateHomologation(dateHomologation);
+                ruptureContratAncien.setDateEntretient(DateEntretient);
+                ruptureContratAncien.setEtat(etat);
+        return ruptureContratRepository.save(ruptureContratAncien);
     }
 
     // Méthodes spécifiques à implémenter dans les repositories associés

@@ -15,11 +15,14 @@ public class PersonnelService {
         this.personnelRepository = pr;
     }
 
+    public List<Personnel> getAll(){ 
+        return this.personnelRepository.findAll();
+        
+    }
+
     public Personnel getPersonnelById(int id){
         return this.personnelRepository.findById(id).orElse(null);
     }
 
-    public List<Personnel> getAll(){ 
-    return this.personnelRepository.findAll();
-    }
+   
 }

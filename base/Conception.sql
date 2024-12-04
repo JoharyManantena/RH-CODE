@@ -112,7 +112,23 @@ CREATE TABLE rupture_contrat (
 );
 ALTER TABLE rupture_contrat
 ADD COLUMN date_preavis DATE;
+ALTER TABLE rupture_contrat
+ADD COLUMN preavis INT;
+ALTER TABLE rupture_contrat
+ADD COLUMN envoye DATE;
 
+
+CREATE TABLE indemnite (
+    id_indemnite INT AUTO_INCREMENT,
+    id_rupture_contrat INT NOT NULL,
+    compensatoire DECIMAL(15,2),
+    conge_non_paye DECIMAL(15,2),
+    licencement DECIMAL(15,2),
+    specifique DECIMAL(15,2),
+    retraite DECIMAL(15,2),
+    PRIMARY KEY (id_indemnite),
+    FOREIGN KEY (id_rupture_contrat) REFERENCES rupture_contrat(id_rupture_contrat)
+);
 
 
 
@@ -125,3 +141,5 @@ CREATE TABLE document_fin (
    PRIMARY KEY(id_document),
    FOREIGN KEY(id_rupture) REFERENCES rupture_contrat(id_rupture_contrat)
 );
+
+
